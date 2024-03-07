@@ -101,6 +101,13 @@ public class Main {
 
     }
 
+
+    /**
+     * Metodo que valida si el rut ingresado es valido.
+     *
+     * @param rut Se rescata el rut ingresado
+     * @return verdadero o falso, si de cumple condición
+     */
     public static boolean validarRut(String rut) {
 
         boolean validacion = false;
@@ -125,7 +132,12 @@ public class Main {
         }
         return validacion;
     }
-    
+
+    /**
+     * @param rut Se rescata el rut ingresado por el usario.
+     * @return rut completo formateado con los . y -
+     * @author Javier Alcántara
+     */
     public static String formatearRut(String rut) {
         int cont = 0;
         String format;
