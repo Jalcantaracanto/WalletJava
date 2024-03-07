@@ -19,16 +19,62 @@ public class Main {
 
             switch (opcion) {
                 case 1:
-                    String email, pass;
+                    String email, contrasena;
                     MenuConectar();
                     System.out.print("Correo: ");
                     email = scanner.nextLine();
                     System.out.print("Contraseña: ");
-                    pass = scanner.nextLine();
+                    contrasena = scanner.nextLine();
                     break;
                 case 2:
                     MenuRegistrar();
-                    listaUsuarios.add(RegistroUsuario(scanner));
+
+                    Usuario user = RegistroUsuario(scanner);
+                    listaUsuarios.add(user);
+
+                    String deseaSaldo;
+                    System.out.println("============================");
+                    System.out.println("|    Registro Completado   |");
+                    System.out.println("|  ¿Desea ingresar saldo?  |");
+                    System.out.println("|        ( s / n )         |");
+                    System.out.println("============================");
+
+                    String deseoSaldo;
+
+                    System.out.print("Respuesta: ");
+                    deseoSaldo = scanner.nextLine();
+                    if (deseoSaldo.equalsIgnoreCase("s")) {
+                        Billetera billetera = new Billetera();
+                        String moneda;
+                        double saldo;
+
+                        System.out.println("============================");
+                        System.out.println("|   SELECCIONE DIVISA      |");
+                        System.out.println("============================");
+                        System.out.println("| Opciones:                |");
+                        System.out.println("|        1. Peso Chileno   |");
+                        System.out.println("|        2. Dolar          |");
+                        System.out.println("|        3. Euro           |");
+                        System.out.println("|        4. Yen            |");
+                        System.out.println("============================");
+
+                        int tipoSaldo = scanner.nextInt();
+                        String tipo;
+                        switch (tipoSaldo) {
+                            case 1:
+                                tipo = "Peso";
+                                System.out.print("Cantidad: ");
+                                saldo = scanner.nextInt();
+                                listaBilleteras.add(new Billetera(user.getRut(), tipo, saldo));
+                                break;
+                            case 2:
+                                break;
+                        }
+
+                    }
+
+
+                    System.out.println();
                     System.out.println(listaUsuarios);
                     break;
                 default:
@@ -89,7 +135,6 @@ public class Main {
                 break;
             } else {
                 MensajeRutInvalido();
-
             }
         }
         System.out.print("Ingrese Correo: ");
@@ -175,7 +220,7 @@ public class Main {
     }
 
     /**
-     * Metodo que valida si el rut ingresado es valido.
+     * Método que válida si el rut ingresado es válido.
      *
      * @param rut Se rescata el rut ingresado
      * @return verdadero o falso, si de cumple condición
@@ -206,9 +251,8 @@ public class Main {
     }
 
     /**
-     * @param rut Se rescata el rut ingresado por el usario.
-     * @return rut completo formateado con los . y -
-     * @author Javier Alcántara
+     * @param rut Se rescata el Rut ingresado por el usuario.
+     * @return rut completo formateado con puntos y guíon.
      */
     public static String formatearRut(String rut) {
         int cont = 0;
@@ -230,6 +274,4 @@ public class Main {
             return format.toString();
         }
     }
-
-
 }
