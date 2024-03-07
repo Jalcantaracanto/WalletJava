@@ -1,6 +1,4 @@
-import java.lang.invoke.SwitchPoint;
 import java.util.ArrayList;
-import java.util.InputMismatchException;
 import java.util.Scanner;
 
 public class Main {
@@ -12,19 +10,9 @@ public class Main {
         ArrayList<Billetera> listaBilleteras = new ArrayList<>();
 
         int opcion;
-        String salir;
-
 
         while (true) {
-            // Menu Bienvenido
-            System.out.println("============================");
-            System.out.println("|   BIENVENIDO A WALLET    |");
-            System.out.println("============================");
-            System.out.println("| Opciones:                |");
-            System.out.println("|        1. Conectar       |");
-            System.out.println("|        2. Registrar      |");
-            System.out.println("|        3. Salir          |");
-            System.out.println("============================");
+            MenuInicio();
             System.out.print("Ingrese opción: ");
             opcion = scanner.nextInt();
             scanner.nextLine();
@@ -32,75 +20,159 @@ public class Main {
             switch (opcion) {
                 case 1:
                     String email, pass;
-                    System.out.println("============================");
-                    System.out.println("|         CONECTAR         |");
-                    System.out.println("============================");
-                    System.out.println("|                          |");
-                    System.out.println("|    Ingrese su correo     |");
-                    System.out.println("|             y            |");
-                    System.out.println("|        contraseña        |");
-                    System.out.println("|                          |");
-                    System.out.println("============================");
+                    MenuConectar();
                     System.out.print("Correo: ");
                     email = scanner.nextLine();
                     System.out.print("Contraseña: ");
                     pass = scanner.nextLine();
                     break;
                 case 2:
-                    String nombre, apellido, rut, correo, contrasena, vContrasena;
-                    System.out.println("============================");
-                    System.out.println("|         REGISTRO         |");
-                    System.out.println("============================");
-                    System.out.println("|                          |");
-                    System.out.println("|  Proporcione los datos   |");
-                    System.out.println("|      solicitados en      |");
-                    System.out.println("|         consola          |");
-                    System.out.println("|                          |");
-                    System.out.println("============================");
-                    System.out.print("Ingrese Nombre: ");
-                    nombre = scanner.nextLine();
-                    System.out.print("Ingrese Apellido: ");
-                    apellido = scanner.nextLine();
-                    while (true) {
-                        System.out.print("Ingrese Rut: ");
-                        rut = scanner.nextLine();
-                        if (validarRut(rut)) {
-                            rut = formatearRut(rut);
-                            break;
-                        } else {
-                            System.out.println("============================");
-                            System.out.println("|    Ingrese Rut Válido    |");
-                            System.out.println("============================");
-                        }
-                    }
-                    System.out.print("Ingrese Correo: ");
-                    correo = scanner.nextLine();
-                    System.out.print("Ingrese Contraseña: ");
-                    contrasena = scanner.nextLine();
-//                System.out.println("Ingrese Contraseña nuevamente: ");
-                    Usuario usuario = new Usuario(nombre, apellido, rut, correo, contrasena);
-                    listaUsuarios.add(usuario);
+                    MenuRegistrar();
+                    listaUsuarios.add(RegistroUsuario(scanner));
                     System.out.println(listaUsuarios);
                     break;
                 default:
-                    System.out.println("Hasta nunca más");
+                    scanner.close();
                     break;
             }
-            System.out.println("=========================================");
-            System.out.println("| ¿Desea realizar otra operación? (s/n) |");
-            System.out.println("=========================================");
-            System.out.print("Respuesta: ");
-            salir = scanner.nextLine();
-            if (salir.equalsIgnoreCase("s")) {
-                System.out.println("\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n");
-            } else {
+            if (opcion == 3) {
+                MenuDespedida();
                 break;
             }
-
+            if (!preguntaOtraOperacion(scanner)) {
+                break;
+            }
         }
 
     }
 
+    /**
+     * Pregunta si desea realizar otra acción dentro del sistema para poder reingresar al menu anterior.
+     *
+     * @param scanner Se envía la clase Scanner con el fin de poder obtener respuesta.
+     * @return Retorna verdadero si se desea continuar con una operación, de lo contrario retorna falso para salir del sistema.
+     * @author Javier Alcántara
+     */
+    private static boolean preguntaOtraOperacion(Scanner scanner) {
+        String salir;
+        System.out.println("=========================================");
+        System.out.println("| ¿Desea realizar otra operación? (s/n) |");
+        System.out.println("=========================================");
+        System.out.print("Respuesta: ");
+        salir = scanner.nextLine();
+        if (salir.equalsIgnoreCase("s")) {
+            System.out.println("\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n");
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    /**
+     * Metodo que realiza la tarea de agregar el usurio, pidiendo al usuario todos los datos necesarios para su creación.
+     *
+     * @param scanner Se envia la clase Scanner con el fin de poder obtener los datos del usuario.
+     * @return Retorna un Usuario creado para poder ser agregado al Array listaUsuarios.
+     * @author Javier Alcántara
+     */
+    private static Usuario RegistroUsuario(Scanner scanner) {
+        String nombre, apellido, rut, correo, contrasena, vContrasena;
+        System.out.print("Ingrese Nombre: ");
+        nombre = scanner.nextLine();
+        System.out.print("Ingrese Apellido: ");
+        apellido = scanner.nextLine();
+        while (true) {
+            System.out.print("Ingrese Rut: ");
+            rut = scanner.nextLine();
+            if (validarRut(rut)) {
+                rut = formatearRut(rut);
+                break;
+            } else {
+                MensajeRutInvalido();
+
+            }
+        }
+        System.out.print("Ingrese Correo: ");
+        correo = scanner.nextLine();
+
+        while (true) {
+            System.out.print("Ingrese Contraseña: ");
+            contrasena = scanner.nextLine();
+            System.out.print("Ingrese Contraseña nuevamente: ");
+            vContrasena = scanner.nextLine();
+            if (contrasena.equals(vContrasena)) {
+                break;
+            } else {
+                System.out.println("=========================================");
+                System.out.println("|       Contraseñas no coinciden,       |");
+                System.out.println("|           intente nuevamente          |");
+                System.out.println("=========================================");
+
+            }
+        }
+        return new Usuario(nombre, apellido, rut, correo, contrasena);
+    }
+
+    private static void MensajeRutInvalido() {
+        System.out.println("============================");
+        System.out.println("|    Ingrese Rut Válido    |");
+        System.out.println("============================");
+    }
+
+    // FUNCIONES
+
+    /**
+     * Menu de bienvenida inicial al ejecutar aplicación.
+     */
+    public static void MenuInicio() {
+        System.out.println("============================");
+        System.out.println("|   BIENVENIDO A WALLET    |");
+        System.out.println("============================");
+        System.out.println("| Opciones:                |");
+        System.out.println("|        1. Conectar       |");
+        System.out.println("|        2. Registrar      |");
+        System.out.println("|        3. Salir          |");
+        System.out.println("============================");
+    }
+
+    /**
+     * Pantalla de opción 1 (Conectar).
+     */
+    public static void MenuConectar() {
+        System.out.println("============================");
+        System.out.println("|         CONECTAR         |");
+        System.out.println("============================");
+        System.out.println("|                          |");
+        System.out.println("|    Ingrese su correo     |");
+        System.out.println("|             y            |");
+        System.out.println("|        contraseña        |");
+        System.out.println("|                          |");
+        System.out.println("============================");
+    }
+
+    /**
+     * Pantalla de opción 2 (Registrar).
+     */
+    public static void MenuRegistrar() {
+        System.out.println("============================");
+        System.out.println("|         REGISTRO         |");
+        System.out.println("============================");
+        System.out.println("|                          |");
+        System.out.println("|  Proporcione los datos   |");
+        System.out.println("|      solicitados en      |");
+        System.out.println("|         consola          |");
+        System.out.println("|                          |");
+        System.out.println("============================");
+    }
+
+    /**
+     * Pantalla de despedida, para cerrar al cerrar programa con opción 3 (Salir).
+     */
+    public static void MenuDespedida() {
+        System.out.println("=========================================");
+        System.out.println("|   Que tenga un buen día, Hasta Luego  |");
+        System.out.println("=========================================");
+    }
 
     /**
      * Metodo que valida si el rut ingresado es valido.
@@ -127,8 +199,8 @@ public class Main {
                 validacion = true;
             }
 
-        } catch (java.lang.NumberFormatException e) {
-        } catch (Exception e) {
+        } catch (NumberFormatException e) {
+            System.out.println(e);
         }
         return validacion;
     }
@@ -140,22 +212,22 @@ public class Main {
      */
     public static String formatearRut(String rut) {
         int cont = 0;
-        String format;
-        if (rut.length() == 0) {
+        StringBuilder format;
+        if (rut.isEmpty()) {
             return "";
         } else {
             rut = rut.replace(".", "");
             rut = rut.replace("-", "");
-            format = "-" + rut.substring(rut.length() - 1);
+            format = new StringBuilder(("-" + rut.substring(rut.length() - 1)));
             for (int i = rut.length() - 2; i >= 0; i--) {
-                format = rut.substring(i, i + 1) + format;
+                format.insert(0, rut.charAt(i));
                 cont++;
                 if (cont == 3 && i != 0) {
-                    format = "." + format;
+                    format.insert(0, ".");
                     cont = 0;
                 }
             }
-            return format;
+            return format.toString();
         }
     }
 
