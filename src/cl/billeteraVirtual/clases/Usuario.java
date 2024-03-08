@@ -1,6 +1,12 @@
-public class Usuario {
-    String nombre, apellido, rut, correo, contrasena;
+package cl.billeteraVirtual.clases;
 
+public class Usuario {
+
+    // 1 - Atributos
+    //public / private / protected -> Modificadores de Acceso
+    public String nombre, apellido, rut, correo, contrasena;
+
+    //Constructores
     public Usuario() {
     }
 
@@ -12,6 +18,7 @@ public class Usuario {
         this.contrasena = contrasena;
     }
 
+    //Métodos de Acceso
     public String getNombre() {
         return nombre;
     }
@@ -52,9 +59,11 @@ public class Usuario {
         this.contrasena = contrasena;
     }
 
+
+//    Métodos de compartimiento
     @Override
     public String toString() {
-        return "Usuario{" +
+        return "cl.billeteraVirtual.clases.Usuario{" +
                 "nombre='" + nombre + '\'' +
                 ", apellido='" + apellido + '\'' +
                 ", rut='" + rut + '\'' +

@@ -1,3 +1,6 @@
+import cl.billeteraVirtual.clases.Billetera;
+import cl.billeteraVirtual.clases.Usuario;
+
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -19,63 +22,110 @@ public class Main {
 
             switch (opcion) {
                 case 1:
-                    String email, contrasena;
-                    MenuConectar();
-                    System.out.print("Correo: ");
-                    email = scanner.nextLine();
-                    System.out.print("Contraseña: ");
-                    contrasena = scanner.nextLine();
-                    break;
+//                    String email, contrasena;
+//                    MenuConectar();
+//                    System.out.print("Correo: ");
+//                    email = scanner.nextLine();
+//                    System.out.print("Contraseña: ");
+//                    contrasena = scanner.nextLine();
+//                    break;
                 case 2:
                     MenuRegistrar();
 
                     Usuario user = RegistroUsuario(scanner);
                     listaUsuarios.add(user);
 
-                    String deseaSaldo;
-                    System.out.println("============================");
-                    System.out.println("|    Registro Completado   |");
-                    System.out.println("|  ¿Desea ingresar saldo?  |");
-                    System.out.println("|        ( s / n )         |");
-                    System.out.println("============================");
+                    String deseoSaldo = "";
 
-                    String deseoSaldo;
+                    do {
+                        try {
+                            System.out.println("============================");
+                            System.out.println("|    Registro Completado   |");
+                            System.out.println("|  ¿Desea ingresar saldo?  |");
+                            System.out.println("|        ( s / n )         |");
+                            System.out.println("============================");
+                            System.out.print("Respuesta: ");
 
-                    System.out.print("Respuesta: ");
-                    deseoSaldo = scanner.nextLine();
+                            deseoSaldo = scanner.nextLine();
+
+                            if (!deseoSaldo.equalsIgnoreCase("n") && !deseoSaldo.equalsIgnoreCase("s")) {
+                                System.out.println("Solo puede responder 'S' o 'N'");
+                                System.out.println("Presione enter para continuar...");
+                                scanner.nextLine();
+                            }
+                        } catch (IllegalArgumentException e) {
+                            System.out.println(e.getMessage());
+                        }
+
+                    } while (!deseoSaldo.equalsIgnoreCase("n") && !deseoSaldo.equalsIgnoreCase("s"));
+
                     if (deseoSaldo.equalsIgnoreCase("s")) {
-                        Billetera billetera = new Billetera();
-                        String moneda;
                         double saldo;
-
-                        System.out.println("============================");
-                        System.out.println("|   SELECCIONE DIVISA      |");
-                        System.out.println("============================");
-                        System.out.println("| Opciones:                |");
-                        System.out.println("|        1. Peso Chileno   |");
-                        System.out.println("|        2. Dolar          |");
-                        System.out.println("|        3. Euro           |");
-                        System.out.println("|        4. Yen            |");
-                        System.out.println("============================");
-
-                        int tipoSaldo = scanner.nextInt();
+                        int tipoSaldo = 0;
                         String tipo;
-                        switch (tipoSaldo) {
-                            case 1:
-                                tipo = "Peso";
-                                System.out.print("Cantidad: ");
-                                saldo = scanner.nextInt();
-                                listaBilleteras.add(new Billetera(user.getRut(), tipo, saldo));
-                                break;
-                            case 2:
-                                break;
+
+                        while (true) {
+
+                            do {
+                                try {
+                                    SeleccioneDivisa();
+                                    System.out.print("Respuesta: ");
+                                    while (!scanner.hasNextInt()) {
+                                        System.out.println("Por favor, ingrese un número entero.");
+                                        System.out.print("Respuesta: ");
+                                        scanner.nextLine();
+                                    }
+                                    tipoSaldo = scanner.nextInt();
+
+                                    if (tipoSaldo < 1 || tipoSaldo > 4) {
+                                        System.out.println("Opción inválida. Por favor, seleccione una opción del 1 al 4.");
+                                    }
+                                } catch (IllegalArgumentException e) {
+                                    System.out.println(e.getMessage());
+                                    continue;
+                                }
+                            } while (tipoSaldo < 1 || tipoSaldo > 4);
+
+                            switch (tipoSaldo) {
+                                case 1:
+                                    tipo = "Peso";
+                                    System.out.print("Cantidad: ");
+                                    saldo = scanner.nextDouble();
+                                    listaBilleteras.add(new Billetera(user.getRut(), tipo, saldo));
+                                    break;
+                                case 2:
+                                    tipo = "Dólar";
+                                    System.out.print("Cantidad: ");
+                                    saldo = scanner.nextDouble();
+                                    listaBilleteras.add(new Billetera(user.getRut(), tipo, saldo));
+                                    break;
+                                case 3:
+                                    tipo = "Euro";
+                                    System.out.print("Cantidad: ");
+                                    saldo = scanner.nextDouble();
+                                    listaBilleteras.add(new Billetera(user.getRut(), tipo, saldo));
+                                    break;
+                                case 4:
+                                    tipo = "Yen";
+                                    System.out.print("Cantidad: ");
+                                    saldo = scanner.nextDouble();
+                                    listaBilleteras.add(new Billetera(user.getRut(), tipo, saldo));
+                                    break;
+                                default:
+                                    System.out.println("=========================================");
+                                    System.out.println("|  Opción invalida, intente nuevamente  |");
+                                    System.out.println("=========================================");
+                                    continue;
+                            }
+                            scanner.nextLine();
+                            break;
                         }
 
                     }
 
-
                     System.out.println();
                     System.out.println(listaUsuarios);
+                    System.out.println(listaBilleteras);
                     break;
                 default:
                     scanner.close();
@@ -90,6 +140,21 @@ public class Main {
             }
         }
 
+    }
+
+    /**
+     * Menu para seleccionar el tipo de divisa que uno quiere utilizar.
+     */
+    private static void SeleccioneDivisa() {
+        System.out.println("============================");
+        System.out.println("|   SELECCIONE DIVISA      |");
+        System.out.println("============================");
+        System.out.println("| Opciones:                |");
+        System.out.println("|        1. Peso Chileno   |");
+        System.out.println("|        2. Dólar          |");
+        System.out.println("|        3. Euro           |");
+        System.out.println("|        4. Yen            |");
+        System.out.println("============================");
     }
 
     /**
@@ -118,7 +183,7 @@ public class Main {
      * Metodo que realiza la tarea de agregar el usurio, pidiendo al usuario todos los datos necesarios para su creación.
      *
      * @param scanner Se envia la clase Scanner con el fin de poder obtener los datos del usuario.
-     * @return Retorna un Usuario creado para poder ser agregado al Array listaUsuarios.
+     * @return Retorna un Usuario (cl.billeteraVirtual.clases.Usuario) creado para poder ser agregado al Array listaUsuarios.
      * @author Javier Alcántara
      */
     private static Usuario RegistroUsuario(Scanner scanner) {
