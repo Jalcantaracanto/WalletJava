@@ -1,13 +1,19 @@
 package cl.billeteraVirtual.clases;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class Usuario {
 
     // 1 - Atributos
-    //public / private / protected -> Modificadores de Acceso
-    public String nombre, apellido, rut, correo, contrasena;
 
-    //Constructores
+    //public / private / protected -> Modificadores de Acceso
+    private String nombre, apellido, rut, correo, contrasena;
+    private List<Billetera> billeteras;
+
+    //Constructores-
     public Usuario() {
+        this.billeteras = new ArrayList<>();
     }
 
     public Usuario(String nombre, String apellido, String rut, String correo, String contrasena) {
@@ -16,11 +22,20 @@ public class Usuario {
         this.rut = rut;
         this.correo = correo;
         this.contrasena = contrasena;
+        this.billeteras = new ArrayList<>();
     }
 
     //Métodos de Acceso
     public String getNombre() {
         return nombre;
+    }
+
+    public List<Billetera> getBilleteras() {
+        return billeteras;
+    }
+
+    public void setBilleteras(List<Billetera> billeteras) {
+        this.billeteras = billeteras;
     }
 
     public void setNombre(String nombre) {
@@ -60,7 +75,7 @@ public class Usuario {
     }
 
 
-//    Métodos de compartimiento
+    //    Métodos de compartimiento
     @Override
     public String toString() {
         return "cl.billeteraVirtual.clases.Usuario{" +
@@ -70,5 +85,14 @@ public class Usuario {
                 ", correo='" + correo + '\'' +
                 ", contraseña='" + contrasena + '\'' +
                 '}';
+    }
+
+    // Métodos adicionales
+    public void agregarBilletera(Billetera billetera) {
+        billeteras.add(billetera);
+    }
+
+    public void eliminarBilletera(Billetera billetera) {
+        billeteras.remove(billetera);
     }
 }

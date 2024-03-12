@@ -1,8 +1,8 @@
 package cl.billeteraVirtual.clases;
 
 public class Billetera {
-    public String rut, moneda;
-    public double saldo;
+    private String rut, moneda;
+    private double saldo;
 
     public Billetera() {
     }
@@ -39,10 +39,17 @@ public class Billetera {
 
     @Override
     public String toString() {
-        return "cl.billeteraVirtual.clases.Billetera{" +
-                "rut='" + rut + '\'' +
-                ", moneda='" + moneda + '\'' +
-                ", saldo=" + saldo +
-                '}';
+        return "cl.billeteraVirtual.clases.Billetera{" + "rut='" + rut + '\'' + ", moneda='" + moneda + '\'' + ", saldo=" + saldo + '}';
+    }
+
+
+    //METODOS
+
+    public void ingresoSaldo(double ingresoSaldo) {
+        this.saldo += ingresoSaldo;
+    }
+
+    public void retiroSaldo(double retiroSaldo) {
+        this.saldo -= retiroSaldo;
     }
 }
