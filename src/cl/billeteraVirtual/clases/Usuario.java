@@ -95,4 +95,23 @@ public class Usuario {
     public void eliminarBilletera(Billetera billetera) {
         billeteras.remove(billetera);
     }
+
+    public void verSaldoDisponible() {
+        System.out.println("Saldos en cuenta");
+        for (Billetera billetera : billeteras) {
+            System.out.printf("**** %s ****\n", billetera.getMoneda());
+            System.out.printf("Saldo: %f\n", billetera.getSaldo());
+            System.out.println("*****************");
+        }
+    }
+
+    public double obtenerSaldo(String moneda) {
+        double saldoTotal = 0.0;
+        for (Billetera billetera : billeteras) {
+            if (billetera.getMoneda().equalsIgnoreCase(moneda)) {
+                saldoTotal += billetera.getSaldo();
+            }
+        }
+        return saldoTotal;
+    }
 }

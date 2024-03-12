@@ -1,7 +1,4 @@
-import cl.billeteraVirtual.clases.Banco;
-import cl.billeteraVirtual.clases.Billetera;
-import cl.billeteraVirtual.clases.Menu;
-import cl.billeteraVirtual.clases.Usuario;
+import cl.billeteraVirtual.clases.*;
 
 import java.util.Scanner;
 
@@ -13,36 +10,11 @@ public class Main {
         Menu menu = new Menu();
         Usuario usuario = new Usuario("Javier", "Alcántara", "18.298.640-2", "javier.alcantara.canto@gmail.com", "12345");
         Usuario usuario2 = new Usuario("Nicole", "Chavez", "18.298.640-2", "asd", "12345");
-
-
-//        int opcion;
-//        SistemaBanco(menu, scanner, banco);
-
-        banco.agregarUsuario(usuario);
         banco.agregarUsuario(usuario2);
 
-        for (Usuario user : banco.getListaUsuarios()) {
-            System.out.println(user);
-        }
+        int opcion;
+        SistemaBanco(menu, scanner, banco);
 
-        String email, pass;
-        System.out.print("Ingrese Correo: ");
-        email = scanner.nextLine();
-        System.out.print("Ingrese Contraseña: ");
-        pass = scanner.nextLine();
-        boolean encontrado = false;
-
-        for (Usuario user : banco.getListaUsuarios()) {
-            if (user.getCorreo().equals(email) && user.getContrasena().equals(pass)) {
-                System.out.println("Has podido conectar");
-                encontrado = true;
-                SistemaUsuario(scanner, menu, user);
-            }
-        }
-
-        if (!encontrado) {
-            System.out.println("No encontrado");
-        }
     }
 
     private static void SistemaBanco(Menu menu, Scanner scanner, Banco banco) {
@@ -55,7 +27,29 @@ public class Main {
 
             switch (opcion) {
                 case 1:
-                    //Construcción
+                    for (Usuario user : banco.getListaUsuarios()) {
+                        System.out.println(user);
+                    }
+
+                    String email, pass;
+                    System.out.print("Ingrese Correo: ");
+                    email = scanner.nextLine();
+                    System.out.print("Ingrese Contraseña: ");
+                    pass = scanner.nextLine();
+                    boolean encontrado = false;
+
+                    for (Usuario user : banco.getListaUsuarios()) {
+                        if (user.getCorreo().equals(email) && user.getContrasena().equals(pass)) {
+                            System.out.println("Has podido conectar");
+                            encontrado = true;
+                            SistemaUsuario(scanner, menu, user);
+                        }
+                    }
+
+                    if (!encontrado) {
+                        System.out.println("No encontrado");
+                    }
+                    break;
                 case 2:
                     MenuRegistrar();
                     Usuario user = RegistroUsuario(scanner);
@@ -98,7 +92,7 @@ public class Main {
             opcion = scanner.nextInt();
             scanner.nextLine();
             int tipoDivisa;
-            String moneda;
+            String moneda = "";
 
             switch (opcion) {
                 case 1:
@@ -109,10 +103,12 @@ public class Main {
 
                             if (!scanner.hasNextInt()) {
                                 System.out.println("Por favor, ingrese un número entero.");
+                                scanner.nextLine(); // Consumir la nueva línea
                                 scanner.nextLine();
                                 continue;
                             }
                             tipoDivisa = scanner.nextInt();
+                            scanner.nextLine(); // Consumir la nueva línea
                             if (tipoDivisa < 1 || tipoDivisa > 5) {
                                 System.out.println("Opción inválida. Por favor, seleccione una opción del 1 al 4.");
                                 continue;
@@ -144,17 +140,164 @@ public class Main {
                             System.out.println("Opción inválida.");
                             break;
                     }
-
                     break;
                 case 2:
+                    menu.SeleccioneDivisa();
+                    while (true) {
+                        try {
+                            System.out.print("Respuesta: ");
 
-
+                            if (!scanner.hasNextInt()) {
+                                System.out.println("Por favor, ingrese un número entero.");
+                                scanner.nextLine();
+                                continue;
+                            }
+                            tipoDivisa = scanner.nextInt();
+                            if (tipoDivisa < 1 || tipoDivisa > 5) {
+                                System.out.println("Opción inválida. Por favor, seleccione una opción del 1 al 4.");
+                                continue;
+                            }
+                            break;
+                        } catch (IllegalArgumentException e) {
+                            System.out.println(e.getMessage());
+                        }
+                    }
+                    switch (tipoDivisa) {
+                        case 1:
+                            moneda = "Peso";
+                            RetirarSaldo(usuario, moneda, scanner);
+                            System.out.println(usuario.getBilleteras());
+                            break;
+                        case 2:
+                            moneda = "Dólar";
+                            RetirarSaldo(usuario, moneda, scanner);
+                            break;
+                        case 3:
+                            moneda = "Euro";
+                            RetirarSaldo(usuario, moneda, scanner);
+                            break;
+                        case 4:
+                            moneda = "Yen";
+                            RetirarSaldo(usuario, moneda, scanner);
+                            break;
+                        default:
+                            System.out.println("Opción inválida.");
+                            break;
+                    }
                     break;
                 case 3:
+                    menu.SeleccioneDivisa();
+                    System.out.print("Ingrese opción: ");
+                    int tipoSaldo = scanner.nextInt();
+                    scanner.nextLine(); // Consumir la nueva línea
 
+                    String monedaOrigen = "";
+                    switch (tipoSaldo) {
+                        case 1:
+                            monedaOrigen = "Peso";
+                            break;
+                        case 2:
+                            monedaOrigen = "Dólar";
+                            break;
+                        case 3:
+                            monedaOrigen = "Euro";
+                            break;
+                        case 4:
+                            monedaOrigen = "Yen";
+                            break;
+                        default:
+                            System.out.println("Opción inválida.");
+                            break;
+                    }
+
+                    if (!monedaOrigen.isEmpty()) {
+                        // Mostrar menú de divisa utilizando el método SeleccioneDivisa()
+                        menu.SeleccioneDivisa();
+
+                        int tipoDivisaDestino;
+                        do {
+                            System.out.print("Respuesta: ");
+                            while (!scanner.hasNextInt()) {
+                                System.out.println("Por favor, ingrese un número entero.");
+                                System.out.print("Respuesta: ");
+                                scanner.nextLine(); // Consumir la nueva línea
+                            }
+                            tipoDivisaDestino = scanner.nextInt();
+                            scanner.nextLine(); // Consumir la nueva línea
+
+                            if (tipoDivisaDestino < 1 || tipoDivisaDestino > 4) {
+                                System.out.println("Opción inválida. Por favor, seleccione una opción del 1 al 4.");
+                            }
+                        } while (tipoDivisaDestino < 1 || tipoDivisaDestino > 4);
+
+                        String monedaDestino = "";
+                        switch (tipoDivisaDestino) {
+                            case 1:
+                                monedaDestino = "Peso";
+                                break;
+                            case 2:
+                                monedaDestino = "Dólar";
+                                break;
+                            case 3:
+                                monedaDestino = "Euro";
+                                break;
+                            case 4:
+                                monedaDestino = "Yen";
+                                break;
+                            default:
+                                System.out.println("Opción inválida.");
+                                break;
+                        }
+
+                        // Obtener la cantidad a cambiar
+                        double cantidadACambiar;
+                        System.out.print("Ingrese la cantidad a cambiar: ");
+                        cantidadACambiar = scanner.nextDouble();
+                        scanner.nextLine(); // Consumir la nueva línea
+
+                        // Realizar el cambio de divisa
+                        Divisa divisa = new Divisa();
+                        double montoConvertido = divisa.cambioDivisa(cantidadACambiar, monedaOrigen, monedaDestino);
+
+                        // Verificar si se realizó el cambio correctamente
+                        if (montoConvertido > 0) {
+                            // Restar el monto cambiado de la billetera de origen
+                            for (Billetera billetera : usuario.getBilleteras()) {
+                                if (billetera.getMoneda().equalsIgnoreCase(monedaOrigen)) {
+                                    billetera.retiroSaldo(cantidadACambiar);
+                                    break;
+                                }
+                            }
+
+                            // Sumar el monto convertido a la billetera de destino o crear una nueva billetera si no existe
+                            boolean billeteraEncontrada = false;
+                            for (Billetera billetera : usuario.getBilleteras()) {
+                                if (billetera.getMoneda().equalsIgnoreCase(monedaDestino)) {
+                                    billetera.ingresoSaldo(montoConvertido);
+                                    billeteraEncontrada = true;
+                                    break;
+                                }
+                            }
+                            if (!billeteraEncontrada) {
+                                Billetera nuevaBilletera = new Billetera(usuario.getRut(), monedaDestino, montoConvertido);
+                                usuario.agregarBilletera(nuevaBilletera);
+                            }
+
+                            System.out.println("Se ha realizado el cambio de divisa exitosamente.");
+                            System.out.println("Monto cambiado: " + cantidadACambiar + " " + monedaOrigen);
+                            System.out.println("Monto convertido: " + montoConvertido + " " + monedaDestino);
+                        } else {
+                            System.out.println("No se puede realizar el cambio de divisa debido a una tasa de cambio no válida.");
+                        }
+
+
+                        System.out.println("Se ha realizado el cambio de divisa exitosamente.");
+                        System.out.println("Saldo actual en " + monedaOrigen + ": " + usuario.obtenerSaldo(monedaOrigen));
+                        System.out.println("Saldo actual en " + monedaDestino + ": " + usuario.obtenerSaldo(monedaDestino));
+                    }
                     break;
                 case 4:
-
+                    usuario.verSaldoDisponible();
                     break;
                 default:
                     scanner.close();
@@ -164,9 +307,22 @@ public class Main {
                 MenuDespedida();
                 break;
             }
-            if (!preguntaOtraOperacion(scanner)) {
-                break;
+        }
+    }
+
+    private static void RetirarSaldo(Usuario usuario, String moneda, Scanner scanner) {
+        System.out.printf("|    %s     |\n", moneda);
+        System.out.println("============================");
+        System.out.println("Saldo a ingresar: ");
+        double saldo = scanner.nextDouble();
+        boolean billeteraEncontrada = false;
+        for (Billetera billetera : usuario.getBilleteras()) {
+            if (billetera.getMoneda().equalsIgnoreCase("Peso")) {
+                billetera.retiroSaldo(saldo);
             }
+        }
+        if (!billeteraEncontrada) {
+            System.out.println("No dispones de este tipo de moneda");
         }
     }
 
