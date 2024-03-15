@@ -62,21 +62,29 @@ public class Banco {
 
             switch (opcion) {
                 case 1:
-                    String correoIngreso, contrasena;
-                    System.out.print("Ingrese Correo: ");
-                    correoIngreso = scanner.nextLine();
-                    System.out.print("Ingrese Contraseña: ");
-                    contrasena = scanner.nextLine();
-
                     boolean encontrado = false;
+                    boolean continuar = false;
+//                    while (!continuar) {
+                        String correoIngreso, contrasena;
+                        System.out.print("Ingrese Correo: ");
+                        correoIngreso = scanner.nextLine();
+                        System.out.print("Ingrese Contraseña: ");
+                        contrasena = scanner.nextLine();
 
-                    for (Usuario usuario : getListaUsuarios()) {
-                        if (usuario.getCorreo().equalsIgnoreCase(correoIngreso) && usuario.getContrasena().equals(contrasena)) {
-                            System.out.println("Conexión Éxitosa");
-                            encontrado = true;
-                            sistemaUsuario(usuario, menu, scanner, divisa);
+                        for (Usuario usuario : getListaUsuarios()) {
+                            if (usuario.getCorreo().equalsIgnoreCase(correoIngreso) && usuario.getContrasena().equals(contrasena)) {
+                                menu.mensajeConexionExitosa();
+                                sistemaUsuario(usuario, menu, scanner, divisa);
+                                encontrado = true;
+                                continuar = true;
+                                break;
+                            }
                         }
-                    }
+
+//                        if (!encontrado) {
+//                            menu.mensajeConexionFallida();
+//                        }
+//                    }
                     break;
                 case 2:
                     menu.menuRegistrar();
@@ -309,44 +317,10 @@ public class Banco {
         }
     }
 
-//    public void sistemaRetirarSaldo(Usuario usuario, String moneda, Scanner scanner) {
-//        System.out.printf("|    %s     |\n", moneda);
-//        System.out.println("============================");
-//        System.out.println("Saldo a ingresar: ");
-//        double saldo = scanner.nextDouble();
-//        boolean billeteraEncontrada = false;
-//        for (Billetera billetera : usuario.getBilleteras()) {
-//            if (billetera.getMoneda().equalsIgnoreCase(moneda)) {
-//                billetera.retiroSaldo(saldo);
-//            }
-//        }
-//        if (!billeteraEncontrada) {
-//            System.out.println("No dispones de este tipo de moneda");
-//        }
-//    }
-
-//    public void sistemaIngresarSaldo(Usuario usuario, String moneda, Scanner scanner) {
-//
-//        System.out.printf("|    %s     |\n", moneda);
-//        System.out.println("============================");
-//        System.out.println("Saldo a ingresar: ");
-//        double saldo = scanner.nextDouble();
-//        boolean billeteraEncontrada = false;
-//        for (Billetera billetera : usuario.getBilleteras()) {
-//            if (billetera.getMoneda().equalsIgnoreCase(moneda)) {
-//                billetera.ingresoSaldo(saldo);
-//            }
-//        }
-//        if (!billeteraEncontrada) {
-//            Billetera nuevabilletera = new Billetera(usuario.getRut(), moneda, saldo);
-//            usuario.agregarBilletera(nuevabilletera);
-//        }
-//    }
-
     public void sistemaIngresarSaldoRegistro(Scanner scanner, Usuario usuario, Menu menu) {
         String saldoInicial = "";
         do {
-            // REVISAR SI REALMENTE NECESITO EL TRY CATCH
+            // AJUSTAR PARA HACER SOLO CON IF
             try {
                 menu.menuIngresarSaldoRegistro();
                 System.out.print("Respuesta: ");
@@ -369,7 +343,7 @@ public class Banco {
             while (true) {
 
                 do {
-                    // REVISAR SI REALMENTE NECESITO EL TRY CATCH
+                    // AJUSTAR PARA HACER SOLO CON IF
                     try {
                         menu.menuSeleccioneDivisa();
                         System.out.print("Respuesta: ");
@@ -478,7 +452,7 @@ public class Banco {
             if (contrasena.equals(vContrasena)) {
                 break;
             } else {
-                menu.mensajeContraseñaInvalida();
+                menu.mensajeContrasenaDistinta();
             }
         }
 

@@ -102,7 +102,7 @@ public class Menu {
 
     }
 
-    public void mensajeContraseñaInvalida() {
+    public void mensajeContrasenaDistinta() {
         System.out.println("=================================");
         System.out.println("|   CONTRASEÑAS NO COINCIDEN,   |");
         System.out.println("|       INTENTE NUEVAMENTE      |");
@@ -129,7 +129,7 @@ public class Menu {
         Scanner scanner = new Scanner(System.in);
         System.out.println("================================");
         System.out.println("|        OPCIÓN INVÁLIDA       |");
-        System.out.println("|       INTENTE NUEVAMENTE     |");
+        System.out.println("|      INTENTE NUEVAMENTE      |");
         System.out.println("================================");
         System.out.println("Presione enter para continuar...");
         scanner.nextLine();
@@ -147,6 +147,13 @@ public class Menu {
         System.out.println("|    SOLO SE PERMITE INGRESO    |");
         System.out.println("|          DE NÚMEROS           |");
         System.out.println("================================");
+    }
+
+
+    public void mensajeConexionExitosa() {
+        System.out.println("=================================");
+        System.out.println("|       CONEXIÓN ÉXITOSA        |");
+        System.out.println("=================================");
     }
 
     public static void mensajeIngresoRegistroSaldoExitoso(int tipoSaldo, double saldo) {
@@ -194,4 +201,22 @@ public class Menu {
         System.out.println("=================================");
     }
 
+    public boolean mensajeConexionFallida() {
+        Scanner scanner = new Scanner(System.in);
+        String salir;
+        System.out.println("=================================");
+        System.out.println("|     USUARIO Y/O CONTRASEÑA    |");
+        System.out.println("|          NO ENCONTRADO        |");
+        System.out.println("|  ¿DESEA INTENTAR NUEVAMENTE?  |");
+        System.out.println("|             (S/N)             |");
+        System.out.println("=================================");
+        System.out.print("Respuesta: ");
+        salir = scanner.nextLine();
+        if (salir.equalsIgnoreCase("s")) {
+            System.out.println("");
+            return true;
+        } else {
+            return false;
+        }
+    }
 }
