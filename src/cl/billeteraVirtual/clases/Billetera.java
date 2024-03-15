@@ -43,13 +43,17 @@ public class Billetera {
     }
 
 
-    //METODOS
-
     public void ingresoSaldo(double ingresoSaldo) {
         this.saldo += ingresoSaldo;
+        System.out.println("Sú nuevo saldo en " + getMoneda() + " es " + getSaldo());
     }
 
     public void retiroSaldo(double retiroSaldo) {
-        this.saldo -= retiroSaldo;
+        if (saldo - retiroSaldo >= 0) {
+            this.saldo -= retiroSaldo;
+            System.out.println("Sú nuevo saldo en " + getMoneda() + " es " + getSaldo());
+        } else {
+            System.out.println("No tiene saldo suficiente para retirar");
+        }
     }
 }

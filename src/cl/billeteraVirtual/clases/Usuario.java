@@ -2,16 +2,15 @@ package cl.billeteraVirtual.clases;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Scanner;
 
 public class Usuario {
-
     // 1 - Atributos
-
-    //public / private / protected -> Modificadores de Acceso
     private String nombre, apellido, rut, correo, contrasena;
     private List<Billetera> billeteras;
 
-    //Constructores-
+
+    // 2 - Constructores
     public Usuario() {
         this.billeteras = new ArrayList<>();
     }
@@ -25,7 +24,7 @@ public class Usuario {
         this.billeteras = new ArrayList<>();
     }
 
-    //Métodos de Acceso
+    // 3 - Métodos de Acceso
     public String getNombre() {
         return nombre;
     }
@@ -75,7 +74,7 @@ public class Usuario {
     }
 
 
-    //    Métodos de compartimiento
+    // 4 - Métodos de compartimiento
     @Override
     public String toString() {
         return "cl.billeteraVirtual.clases.Usuario{" +
@@ -87,13 +86,20 @@ public class Usuario {
                 '}';
     }
 
-    // Métodos adicionales
+    // 5 - Métodos Custom
+
     public void agregarBilletera(Billetera billetera) {
         billeteras.add(billetera);
     }
 
-    public void eliminarBilletera(Billetera billetera) {
-        billeteras.remove(billetera);
+    public double obtenerSaldo(String moneda) {
+        double saldoTotal = 0.0;
+        for (Billetera billetera : billeteras) {
+            if (billetera.getMoneda().equalsIgnoreCase(moneda)) {
+                saldoTotal += billetera.getSaldo();
+            }
+        }
+        return saldoTotal;
     }
 
     public void verSaldoDisponible() {
@@ -105,13 +111,41 @@ public class Usuario {
         }
     }
 
-    public double obtenerSaldo(String moneda) {
-        double saldoTotal = 0.0;
-        for (Billetera billetera : billeteras) {
+    public void ingresarSaldo(String moneda, Scanner scanner) {
+
+        System.out.printf("|    %s     |\n", moneda);
+        System.out.println("============================");
+        System.out.println("Saldo a ingresar: ");
+        double saldo = scanner.nextDouble();
+        boolean billeteraEncontrada = false;
+        for (Billetera billetera : getBilleteras()) {
             if (billetera.getMoneda().equalsIgnoreCase(moneda)) {
-                saldoTotal += billetera.getSaldo();
+                billetera.ingresoSaldo(saldo);
+                billeteraEncontrada = true;
+                break;
             }
         }
-        return saldoTotal;
+        if (!billeteraEncontrada) {
+            Billetera nuevabilletera = new Billetera(getRut(), moneda, saldo);
+            agregarBilletera(nuevabilletera);
+        }
+    }
+
+    public void retirarSaldo(String moneda, Scanner scanner) {
+        System.out.printf("|    %s     |\n", moneda);
+        System.out.println("============================");
+        System.out.println("Saldo a retirar: ");
+        double saldo = scanner.nextDouble();
+        boolean billeteraEncontrada = false;
+        for (Billetera billetera : getBilleteras()) {
+            if (billetera.getMoneda().equalsIgnoreCase(moneda)) {
+                billetera.retiroSaldo(saldo);
+                billeteraEncontrada = true;
+                break;
+            }
+        }
+        if (!billeteraEncontrada) {
+            System.out.println("No dispones de este tipo de moneda");
+        }
     }
 }

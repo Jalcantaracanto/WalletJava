@@ -1,50 +1,33 @@
 package cl.billeteraVirtual.clases;
 
+
+import java.util.HashMap;
+import java.util.Map;
+
 public class Divisa {
-    private double dolarAPesoChileno = 966;
-    private double euroAPesoChileno = 1060.34;
-    private double yenAPesoChileno = 7;
+    private Map<String, Double> tasasDeCambio;
 
     public Divisa() {
+        tasasDeCambio = new HashMap<>();
+        tasasDeCambio.put("Dolar-Peso", 966.0);
+        tasasDeCambio.put("Dolar-Euro", 1060.34);
+        tasasDeCambio.put("Dolar-Yen", 7.0);
+        tasasDeCambio.put("Peso-Dolar", 1 / 966.0);
+        tasasDeCambio.put("Peso-Euro", 1 / (1060.34 / 966.0));
+        tasasDeCambio.put("Peso-Yen", 1 / (7.0 / 966.0));
+        tasasDeCambio.put("Euro-Dolar", 1 / 1060.34);
+        tasasDeCambio.put("Euro-Peso", 1060.34 / 966.0);
+        tasasDeCambio.put("Euro-Yen", (7.0 / 966.0) / (1060.34 / 966.0));
+        tasasDeCambio.put("Yen-Dolar", 1 / 7.0);
+        tasasDeCambio.put("Yen-Peso", 7.0 / 966.0);
+        tasasDeCambio.put("Yen-Euro", (1060.34 / 966.0) / (7.0 / 966.0));
     }
 
-    // Método para realizar el cambio de divisa
+
     public double cambioDivisa(double monto, String divisaOrigen, String divisaDestino) {
-        double montoConvertido = 0.0;
-        if (divisaOrigen.equals("Dólar")) {
-            if (divisaDestino.equals("Peso")) {
-                montoConvertido = monto * dolarAPesoChileno;
-            } else if (divisaDestino.equals("Euro")) {
-                montoConvertido = monto * (euroAPesoChileno / dolarAPesoChileno);
-            } else if (divisaDestino.equals("Yen")) {
-                montoConvertido = monto * (yenAPesoChileno / dolarAPesoChileno);
-            }
-        } else if (divisaOrigen.equals("Peso")) {
-            if (divisaDestino.equals("Dólar")) {
-                montoConvertido = monto / dolarAPesoChileno;
-            } else if (divisaDestino.equals("Euro")) {
-                montoConvertido = monto / (euroAPesoChileno / dolarAPesoChileno);
-            } else if (divisaDestino.equals("Yen")) {
-                montoConvertido = monto / (yenAPesoChileno / dolarAPesoChileno);
-            }
-        } else if (divisaOrigen.equals("Euro")) {
-            if (divisaDestino.equals("Dólar")) {
-                montoConvertido = monto * (dolarAPesoChileno / euroAPesoChileno);
-            } else if (divisaDestino.equals("Peso Chileno")) {
-                montoConvertido = monto * (euroAPesoChileno / dolarAPesoChileno);
-            } else if (divisaDestino.equals("Yen")) {
-                montoConvertido = monto * ((yenAPesoChileno / dolarAPesoChileno) / (euroAPesoChileno / dolarAPesoChileno));
-            }
-        } else if (divisaOrigen.equals("Yen")) {
-            if (divisaDestino.equals("Dólar")) {
-                montoConvertido = monto * (dolarAPesoChileno / yenAPesoChileno);
-            } else if (divisaDestino.equals("Peso Chileno")) {
-                montoConvertido = monto * (yenAPesoChileno / dolarAPesoChileno);
-            } else if (divisaDestino.equals("Euro")) {
-                montoConvertido = monto * ((euroAPesoChileno / dolarAPesoChileno) / (yenAPesoChileno / dolarAPesoChileno));
-            }
-        }
-        return montoConvertido;
-    }
+        String clave = divisaOrigen + "-" + divisaDestino;
+        Double tasaDeCambio = tasasDeCambio.get(clave);
 
+        return monto * tasaDeCambio;
+    }
 }
