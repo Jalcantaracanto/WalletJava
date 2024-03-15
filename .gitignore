@@ -1,4 +1,7 @@
 ### IntelliJ IDEA ###
+Wallet.iml/
+WalletJava.iml/
+.idea/
 out/
 !**/src/main/**/out/
 !**/src/test/**/out/
