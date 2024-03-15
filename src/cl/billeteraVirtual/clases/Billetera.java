@@ -37,11 +37,6 @@ public class Billetera {
         this.saldo = saldo;
     }
 
-    @Override
-    public String toString() {
-        return "cl.billeteraVirtual.clases.Billetera{" + "rut='" + rut + '\'' + ", moneda='" + moneda + '\'' + ", saldo=" + saldo + '}';
-    }
-
 
     public void ingresoSaldo(double ingresoSaldo) {
         this.saldo += ingresoSaldo;

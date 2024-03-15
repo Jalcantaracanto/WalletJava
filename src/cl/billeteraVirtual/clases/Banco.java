@@ -1,11 +1,13 @@
 package cl.billeteraVirtual.clases;
 
+import javax.xml.crypto.dom.DOMCryptoContext;
 import java.util.ArrayList;
 import java.util.InputMismatchException;
 import java.util.List;
 import java.util.Scanner;
 
 public class Banco {
+    private Divisa divisa;
 
     // 1 - Variables
     private String nombre = "Wallet Bank";
@@ -13,6 +15,7 @@ public class Banco {
 
     // 2 - Constructores
     public Banco() {
+        divisa = new Divisa();
     }
 
     public Banco(String nombre, List<Usuario> listaUsuarios) {
@@ -44,16 +47,21 @@ public class Banco {
         Menu menu = new Menu();
         int opcion;
         while (true) {
-            menu.menuInicio();
-            System.out.print("Respuesta: ");
-            opcion = scanner.nextInt();
+            while (true) {
+                menu.menuInicio();
+                System.out.print("Respuesta: ");
+                if (scanner.hasNextInt()) {
+                    opcion = scanner.nextInt();
+                    break;
+                } else {
+                    menu.mensajeOpcionInvalida();
+                    scanner.nextLine();
+                }
+            }
             scanner.nextLine();
+
             switch (opcion) {
                 case 1:
-                    for (Usuario usuario : getListaUsuarios()) {
-                        System.out.println(usuario);
-                    }
-
                     String correoIngreso, contrasena;
                     System.out.print("Ingrese Correo: ");
                     correoIngreso = scanner.nextLine();
@@ -66,7 +74,7 @@ public class Banco {
                         if (usuario.getCorreo().equalsIgnoreCase(correoIngreso) && usuario.getContrasena().equals(contrasena)) {
                             System.out.println("Conexión Éxitosa");
                             encontrado = true;
-                            sistemaUsuario(usuario, menu, scanner);
+                            sistemaUsuario(usuario, menu, scanner, divisa);
                         }
                     }
                     break;
@@ -91,7 +99,7 @@ public class Banco {
         }
     }
 
-    public void sistemaUsuario(Usuario usuario, Menu menu, Scanner scanner) {
+    public void sistemaUsuario(Usuario usuario, Menu menu, Scanner scanner, Divisa divisa) {
         int opcion;
 
         while (true) {
@@ -102,46 +110,37 @@ public class Banco {
 
             int tipoDivisa;
             String moneda = "";
+            boolean ingreso = true;
 
             switch (opcion) {
                 case 1:
                     menu.menuSeleccioneDivisa();
+                    ingreso = true;
                     while (true) {
-                        try {
-                            System.out.print("Respuesta: ");
-                            if (!scanner.hasNextInt()) {
-                                System.out.println("Por favor, ingrese un número entero");
-                                scanner.nextLine();
-                                scanner.nextLine();
-                                continue;
-                            }
+                        System.out.print("Respuesta: ");
+                        if (scanner.hasNextInt()) {
                             tipoDivisa = scanner.nextInt();
-                            scanner.nextLine();
-                            if (tipoDivisa < 1 || tipoDivisa > 5) {
-                                System.out.println("Opción inválida. Por favor, seleccione una opción del 1 al 4");
-                                continue;
-                            }
                             break;
-                        } catch (IllegalArgumentException e) {
-                            System.out.println(e.getMessage());
+                        } else {
+                            menu.mensajeOpcionInvalida();
                         }
                     }
                     switch (tipoDivisa) {
                         case 1:
                             moneda = "Peso";
-                            usuario.ingresarSaldo(moneda, scanner);
+                            usuario.operacionSaldo(moneda, scanner, ingreso);
                             break;
                         case 2:
-                            moneda = "Dólar";
-                            usuario.ingresarSaldo(moneda, scanner);
+                            moneda = "Dolar";
+                            usuario.operacionSaldo(moneda, scanner, ingreso);
                             break;
                         case 3:
                             moneda = "Euro";
-                            usuario.ingresarSaldo(moneda, scanner);
+                            usuario.operacionSaldo(moneda, scanner, ingreso);
                             break;
                         case 4:
                             moneda = "Yen";
-                            usuario.ingresarSaldo(moneda, scanner);
+                            usuario.operacionSaldo(moneda, scanner, ingreso);
                             break;
                         default:
                             System.out.println("Opción inválida.");
@@ -151,6 +150,7 @@ public class Banco {
                     break;
                 case 2:
                     menu.menuSeleccioneDivisa();
+                    ingreso = false;
                     while (true) {
                         try {
                             System.out.print("Respuesta: ");
@@ -173,19 +173,19 @@ public class Banco {
                     switch (tipoDivisa) {
                         case 1:
                             moneda = "Peso";
-                            usuario.retirarSaldo(moneda, scanner);
+                            usuario.operacionSaldo(moneda, scanner, ingreso);
                             break;
                         case 2:
-                            moneda = "Dólar";
-                            usuario.retirarSaldo(moneda, scanner);
+                            moneda = "Dolar";
+                            usuario.operacionSaldo(moneda, scanner, ingreso);
                             break;
                         case 3:
                             moneda = "Euro";
-                            usuario.retirarSaldo(moneda, scanner);
+                            usuario.operacionSaldo(moneda, scanner, ingreso);
                             break;
                         case 4:
                             moneda = "Yen";
-                            usuario.retirarSaldo(moneda, scanner);
+                            usuario.operacionSaldo(moneda, scanner, ingreso);
                             break;
                         default:
                             System.out.println("Opción inválida.");
@@ -260,7 +260,6 @@ public class Banco {
                         cantidadACambiar = scanner.nextDouble();
                         scanner.nextLine();
 
-                        Divisa divisa = new Divisa();
                         double montoConvertido = divisa.cambioDivisa(cantidadACambiar, monedaOrigen, monedaDestino);
 
                         if (montoConvertido > 0) {

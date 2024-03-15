@@ -103,49 +103,80 @@ public class Usuario {
     }
 
     public void verSaldoDisponible() {
-        System.out.println("Saldos en cuenta");
+        Scanner scanner = new Scanner(System.in);
+        String formatoSaldo = "";
+        String moneda = "";
+
+        System.out.println("=================================");
+        System.out.println("|       SALDOS DISPONIBLES      |");
+        System.out.println("=================================");
+
         for (Billetera billetera : billeteras) {
-            System.out.printf("**** %s ****\n", billetera.getMoneda());
-            System.out.printf("Saldo: %f\n", billetera.getSaldo());
-            System.out.println("*****************");
+            String tipoSaldo = billetera.getMoneda();
+            switch (tipoSaldo) {
+                case "Peso":
+                    formatoSaldo = "$%,.0f";
+                    moneda = "Peso:";
+                    break;
+                case "Dolar":
+                    formatoSaldo = "$%,.2f";
+                    moneda = "Dólar:";
+                    break;
+                case "Euro":
+                    formatoSaldo = "€%,.2f";
+                    moneda = "Euro:";
+                    break;
+                case "Yen":
+                    formatoSaldo = "¥%,.0f";
+                    moneda = "Yen:";
+                    break;
+                default:
+                    System.out.println("Tipo de saldo no válido.");
+                    return;
+            }
+
+            String saldoFormateado = String.format(formatoSaldo, billetera.getSaldo());
+
+            if (saldoFormateado.length() > 27) {
+                saldoFormateado = saldoFormateado.substring(0, 27);
+            }
+
+            int longitudMoneda = moneda.length();
+            int longitudSaldo = saldoFormateado.length();
+
+            int espaciosEntreMonedaYSaldo = 27 - longitudMoneda - longitudSaldo;
+            System.out.printf("| %s %-" + espaciosEntreMonedaYSaldo + "s %s |%n", moneda, "", saldoFormateado);
         }
+
+        System.out.println("=================================");
+        System.out.println("Presione ENTER para continuar...");
+        scanner.nextLine();
     }
 
-    public void ingresarSaldo(String moneda, Scanner scanner) {
 
+    public void operacionSaldo(String moneda, Scanner scanner, boolean ingreso) {
+        String operacion = ingreso ? "ingresar" : "retirar";
         System.out.printf("|    %s     |\n", moneda);
         System.out.println("============================");
-        System.out.println("Saldo a ingresar: ");
+        System.out.println("Saldo a " + operacion + ": ");
         double saldo = scanner.nextDouble();
         boolean billeteraEncontrada = false;
         for (Billetera billetera : getBilleteras()) {
             if (billetera.getMoneda().equalsIgnoreCase(moneda)) {
-                billetera.ingresoSaldo(saldo);
+                if (ingreso) {
+                    billetera.ingresoSaldo(saldo);
+                } else {
+                    billetera.retiroSaldo(saldo);
+                }
                 billeteraEncontrada = true;
                 break;
             }
         }
-        if (!billeteraEncontrada) {
+        if (!billeteraEncontrada && !ingreso) {
+            System.out.println("No dispones de este tipo de moneda");
+        } else if (!billeteraEncontrada) {
             Billetera nuevabilletera = new Billetera(getRut(), moneda, saldo);
             agregarBilletera(nuevabilletera);
-        }
-    }
-
-    public void retirarSaldo(String moneda, Scanner scanner) {
-        System.out.printf("|    %s     |\n", moneda);
-        System.out.println("============================");
-        System.out.println("Saldo a retirar: ");
-        double saldo = scanner.nextDouble();
-        boolean billeteraEncontrada = false;
-        for (Billetera billetera : getBilleteras()) {
-            if (billetera.getMoneda().equalsIgnoreCase(moneda)) {
-                billetera.retiroSaldo(saldo);
-                billeteraEncontrada = true;
-                break;
-            }
-        }
-        if (!billeteraEncontrada) {
-            System.out.println("No dispones de este tipo de moneda");
         }
     }
 }
