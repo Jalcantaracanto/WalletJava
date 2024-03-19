@@ -153,7 +153,7 @@ public class Usuario {
         scanner.nextLine();
     }
 
-    public void operacionSaldo(String moneda, Scanner scanner, boolean ingreso) {
+    public void operacionSumaRestaSaldo(String moneda, Scanner scanner, boolean ingreso) {
         String operacion = ingreso ? "ingresar" : "retirar";
         System.out.printf("|    %s     |\n", moneda);
         System.out.println("============================");
@@ -174,7 +174,7 @@ public class Usuario {
         if (!billeteraEncontrada && !ingreso) {
             System.out.println("No dispones de este tipo de moneda");
         } else if (!billeteraEncontrada) {
-            Billetera nuevabilletera = new Billetera(getRut(), moneda, saldo);
+            Billetera nuevabilletera = new Billetera(moneda, saldo);
             agregarBilletera(nuevabilletera);
         }
     }

@@ -8,7 +8,7 @@ public class Main {
 
         Usuario usuario1 = new Usuario("Javier", "Alcántara", "18.298.640-2", "asd", "12345");
         banco.agregarUsuarioLista(usuario1);
-        Billetera billetera1 = new Billetera("18.298.640-2", "Peso", 10000);
+        Billetera billetera1 = new Billetera( "Peso", 10000);
         usuario1.agregarBilletera(billetera1);
 
         banco.sistemaBanco();

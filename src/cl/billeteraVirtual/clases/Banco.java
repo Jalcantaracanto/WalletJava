@@ -23,20 +23,9 @@ public class Banco {
     }
 
     // 3 - Métodos de Acceso
-    public String getNombre() {
-        return nombre;
-    }
-
-    public void setNombre(String nombre) {
-        this.nombre = nombre;
-    }
 
     public List<Usuario> getListaUsuarios() {
         return listaUsuarios;
-    }
-
-    public void setListaUsuarios(List<Usuario> listaUsuarios) {
-        this.listaUsuarios = listaUsuarios;
     }
 
 
@@ -46,6 +35,8 @@ public class Banco {
      * Método que contiene el primer sistema que visualiza el usuario, rescata el menuInicio de la clase Menu
      * donde se le preguntara al usuario que desea realizar en el sistema. Donde podrá Conectarse al banco, crear una cuenta
      * o salir del sistema.
+     *
+     * @Author Javier Alcántara
      */
     public void sistemaBanco() {
         Scanner scanner = new Scanner(System.in);
@@ -67,29 +58,7 @@ public class Banco {
 
             switch (opcion) {
                 case 1:
-                    boolean encontrado = false;
-                    boolean continuar = false;
-//                    while (!continuar) {
-                    String correoIngreso, contrasena;
-                    System.out.print("Ingrese Correo: ");
-                    correoIngreso = scanner.nextLine();
-                    System.out.print("Ingrese Contraseña: ");
-                    contrasena = scanner.nextLine();
-
-                    for (Usuario usuario : getListaUsuarios()) {
-                        if (usuario.getCorreo().equalsIgnoreCase(correoIngreso) && usuario.getContrasena().equals(contrasena)) {
-                            menu.mensajeConexionExitosa();
-                            sistemaUsuario(usuario, menu, scanner, divisa);
-                            encontrado = true;
-                            continuar = true;
-                            break;
-                        }
-                    }
-
-//                        if (!encontrado) {
-//                            menu.mensajeConexionFallida();
-//                        }
-//                    }
+                    buscarUsuario(menu, scanner);
                     break;
                 case 2:
                     menu.menuRegistrar();
@@ -102,11 +71,38 @@ public class Banco {
                 menu.mensajeDespedida();
                 break;
             }
-//            if (!menu.menuOtraOperacion()) {
-//                break;
-//            }
         }
     }
+
+    /**
+     * Método que solicita por consola Usuario (String) y contraseña (String) para ser buscados
+     * en el arreglo de usuarios para ser trabajado en el siguiente sistema.
+     *
+     * @param menu    clase Menu para poder visualizar opciones.
+     * @param scanner clase Scanner para poder tomar datos desde consola.
+     * @author Javier Alcántara
+     */
+    private void buscarUsuario(Menu menu, Scanner scanner) {
+        boolean encontrado = false;
+        boolean continuar = false;
+
+        String correoIngreso, contrasena;
+        System.out.print("Ingrese Correo: ");
+        correoIngreso = scanner.nextLine();
+        System.out.print("Ingrese Contraseña: ");
+        contrasena = scanner.nextLine();
+
+        for (Usuario usuario : getListaUsuarios()) {
+            if (usuario.getCorreo().equalsIgnoreCase(correoIngreso) && usuario.getContrasena().equals(contrasena)) {
+                menu.mensajeConexionExitosa();
+                sistemaUsuario(usuario, menu, scanner, divisa);
+                encontrado = true;
+                continuar = true;
+                break;
+            }
+        }
+    }
+
 
     public void sistemaUsuario(Usuario usuario, Menu menu, Scanner scanner, Divisa divisa) {
         int opcion;
@@ -117,89 +113,19 @@ public class Banco {
             opcion = scanner.nextInt();
             scanner.nextLine();
 
-            int tipoDivisa;
+            int tipoDivisa = 0;
             String moneda = "";
             boolean ingreso = true;
 
             switch (opcion) {
                 case 1:
                     menu.menuSeleccioneDivisa();
-                    ingreso = true;
-                    while (true) {
-                        System.out.print("Respuesta: ");
-                        if (scanner.hasNextInt()) {
-                            tipoDivisa = scanner.nextInt();
-                            break;
-                        } else {
-                            menu.mensajeOpcionInvalida();
-                        }
-                    }
-                    switch (tipoDivisa) {
-                        case 1:
-                            moneda = "Peso";
-                            usuario.operacionSaldo(moneda, scanner, ingreso);
-                            break;
-                        case 2:
-                            moneda = "Dolar";
-                            usuario.operacionSaldo(moneda, scanner, ingreso);
-                            break;
-                        case 3:
-                            moneda = "Euro";
-                            usuario.operacionSaldo(moneda, scanner, ingreso);
-                            break;
-                        case 4:
-                            moneda = "Yen";
-                            usuario.operacionSaldo(moneda, scanner, ingreso);
-                            break;
-                        default:
-                            System.out.println("Opción inválida.");
-                            break;
-                    }
-
+                    operacionSaldoAUsuario(menu, scanner, moneda, tipoDivisa, usuario, true);
                     break;
                 case 2:
                     menu.menuSeleccioneDivisa();
                     ingreso = false;
-                    while (true) {
-                        try {
-                            System.out.print("Respuesta: ");
-
-                            if (!scanner.hasNextInt()) {
-                                System.out.println("Por favor, ingrese un número entero.");
-                                scanner.nextLine();
-                                continue;
-                            }
-                            tipoDivisa = scanner.nextInt();
-                            if (tipoDivisa < 1 || tipoDivisa > 5) {
-                                System.out.println("Opción inválida. Por favor, seleccione una opción del 1 al 4.");
-                                continue;
-                            }
-                            break;
-                        } catch (IllegalArgumentException e) {
-                            System.out.println(e.getMessage());
-                        }
-                    }
-                    switch (tipoDivisa) {
-                        case 1:
-                            moneda = "Peso";
-                            usuario.operacionSaldo(moneda, scanner, ingreso);
-                            break;
-                        case 2:
-                            moneda = "Dolar";
-                            usuario.operacionSaldo(moneda, scanner, ingreso);
-                            break;
-                        case 3:
-                            moneda = "Euro";
-                            usuario.operacionSaldo(moneda, scanner, ingreso);
-                            break;
-                        case 4:
-                            moneda = "Yen";
-                            usuario.operacionSaldo(moneda, scanner, ingreso);
-                            break;
-                        default:
-                            System.out.println("Opción inválida.");
-                            break;
-                    }
+                    operacionSaldoAUsuario(menu, scanner, moneda, tipoDivisa, usuario, false);
                     break;
                 case 3:
                     menu.menuSeleccioneDivisa();
@@ -288,7 +214,7 @@ public class Banco {
                                 }
                             }
                             if (!billeteraEncontrada) {
-                                Billetera nuevaBilletera = new Billetera(usuario.getRut(), monedaDestino, montoConvertido);
+                                Billetera nuevaBilletera = new Billetera(monedaDestino, montoConvertido);
                                 usuario.agregarBilletera(nuevaBilletera);
                             }
 
@@ -313,6 +239,44 @@ public class Banco {
             if (opcion == 5) {
                 break;
             }
+        }
+    }
+
+
+    private void operacionSaldoAUsuario(Menu menu, Scanner scanner, String moneda, int tipoDivisa, Usuario usuario, Boolean sumar) {
+        String mensajeOperacion = sumar ? "Ingrese la cantidad a sumar: " : "Ingrese la cantidad a restar: ";
+
+        while (true) {
+            System.out.print("Respuesta: ");
+            if (scanner.hasNextInt()) {
+                tipoDivisa = scanner.nextInt();
+                break;
+            } else {
+                menu.mensajeOpcionInvalida();
+                scanner.nextLine();
+            }
+        }
+
+        switch (tipoDivisa) {
+            case 1:
+                moneda = "Peso";
+                usuario.operacionSumaRestaSaldo(moneda, scanner, sumar);
+                break;
+            case 2:
+                moneda = "Dolar";
+                usuario.operacionSumaRestaSaldo(moneda, scanner, sumar);
+                break;
+            case 3:
+                moneda = "Euro";
+                usuario.operacionSumaRestaSaldo(moneda, scanner, sumar);
+                break;
+            case 4:
+                moneda = "Yen";
+                usuario.operacionSumaRestaSaldo(moneda, scanner, sumar);
+                break;
+            default:
+                System.out.println("Opción inválida.");
+                break;
         }
     }
 
@@ -392,7 +356,7 @@ public class Banco {
                 saldo = scanner.nextDouble();
                 menu.mensajeIngresoRegistroSaldoExitoso(tipoSaldo, saldo);
 
-                Billetera billetera = new Billetera(usuario.getRut(), tipo, saldo);
+                Billetera billetera = new Billetera(tipo, saldo);
                 usuario.agregarBilletera(billetera);
                 scanner.nextLine();
                 break;
@@ -503,6 +467,7 @@ public class Banco {
             return format.toString();
         }
     }
+
 
     public boolean validarCorreo(String correo) {
         // Expresión regular simple para validar un correo electrónico

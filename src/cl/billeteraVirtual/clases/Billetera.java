@@ -1,25 +1,25 @@
 package cl.billeteraVirtual.clases;
 
 public class Billetera {
-    private String rut, moneda;
+    private String moneda;
     private double saldo;
 
     public Billetera() {
     }
 
-    public Billetera(String rut, String moneda, double saldo) {
-        this.rut = rut;
+    public Billetera(String moneda, double saldo) {
+        //this.rut = rut;
         this.moneda = moneda;
         this.saldo = saldo;
     }
 
-    public String getRut() {
-        return rut;
-    }
+//    public String getRut() {
+//        return rut;
+//    }
 
-    public void setRut(String rut) {
-        this.rut = rut;
-    }
+//    public void setRut(String rut) {
+//        this.rut = rut;
+//    }
 
     public String getMoneda() {
         return moneda;
@@ -39,8 +39,10 @@ public class Billetera {
 
 
     public void sumarSaldo(double ingresoSaldo) {
+        Menu menu = new Menu();
         this.saldo += ingresoSaldo;
         System.out.println("Sú nuevo saldo en " + getMoneda() + " es " + getSaldo());
+
     }
 
     public void restarSaldo(double retiroSaldo) {
