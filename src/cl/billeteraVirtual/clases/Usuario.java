@@ -153,7 +153,6 @@ public class Usuario {
         scanner.nextLine();
     }
 
-
     public void operacionSaldo(String moneda, Scanner scanner, boolean ingreso) {
         String operacion = ingreso ? "ingresar" : "retirar";
         System.out.printf("|    %s     |\n", moneda);
@@ -164,9 +163,9 @@ public class Usuario {
         for (Billetera billetera : getBilleteras()) {
             if (billetera.getMoneda().equalsIgnoreCase(moneda)) {
                 if (ingreso) {
-                    billetera.ingresoSaldo(saldo);
+                    billetera.sumarSaldo(saldo);
                 } else {
-                    billetera.retiroSaldo(saldo);
+                    billetera.restarSaldo(saldo);
                 }
                 billeteraEncontrada = true;
                 break;

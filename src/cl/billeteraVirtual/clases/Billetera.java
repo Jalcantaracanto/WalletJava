@@ -38,12 +38,12 @@ public class Billetera {
     }
 
 
-    public void ingresoSaldo(double ingresoSaldo) {
+    public void sumarSaldo(double ingresoSaldo) {
         this.saldo += ingresoSaldo;
         System.out.println("Sú nuevo saldo en " + getMoneda() + " es " + getSaldo());
     }
 
-    public void retiroSaldo(double retiroSaldo) {
+    public void restarSaldo(double retiroSaldo) {
         if (saldo - retiroSaldo >= 0) {
             this.saldo -= retiroSaldo;
             System.out.println("Sú nuevo saldo en " + getMoneda() + " es " + getSaldo());

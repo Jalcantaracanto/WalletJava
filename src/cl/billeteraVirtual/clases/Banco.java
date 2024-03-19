@@ -1,6 +1,5 @@
 package cl.billeteraVirtual.clases;
 
-import javax.xml.crypto.dom.DOMCryptoContext;
 import java.util.ArrayList;
 import java.util.InputMismatchException;
 import java.util.List;
@@ -42,6 +41,12 @@ public class Banco {
 
 
     // 5 - Métodos adicionales
+
+    /**
+     * Método que contiene el primer sistema que visualiza el usuario, rescata el menuInicio de la clase Menu
+     * donde se le preguntara al usuario que desea realizar en el sistema. Donde podrá Conectarse al banco, crear una cuenta
+     * o salir del sistema.
+     */
     public void sistemaBanco() {
         Scanner scanner = new Scanner(System.in);
         Menu menu = new Menu();
@@ -65,21 +70,21 @@ public class Banco {
                     boolean encontrado = false;
                     boolean continuar = false;
 //                    while (!continuar) {
-                        String correoIngreso, contrasena;
-                        System.out.print("Ingrese Correo: ");
-                        correoIngreso = scanner.nextLine();
-                        System.out.print("Ingrese Contraseña: ");
-                        contrasena = scanner.nextLine();
+                    String correoIngreso, contrasena;
+                    System.out.print("Ingrese Correo: ");
+                    correoIngreso = scanner.nextLine();
+                    System.out.print("Ingrese Contraseña: ");
+                    contrasena = scanner.nextLine();
 
-                        for (Usuario usuario : getListaUsuarios()) {
-                            if (usuario.getCorreo().equalsIgnoreCase(correoIngreso) && usuario.getContrasena().equals(contrasena)) {
-                                menu.mensajeConexionExitosa();
-                                sistemaUsuario(usuario, menu, scanner, divisa);
-                                encontrado = true;
-                                continuar = true;
-                                break;
-                            }
+                    for (Usuario usuario : getListaUsuarios()) {
+                        if (usuario.getCorreo().equalsIgnoreCase(correoIngreso) && usuario.getContrasena().equals(contrasena)) {
+                            menu.mensajeConexionExitosa();
+                            sistemaUsuario(usuario, menu, scanner, divisa);
+                            encontrado = true;
+                            continuar = true;
+                            break;
                         }
+                    }
 
 //                        if (!encontrado) {
 //                            menu.mensajeConexionFallida();
@@ -90,20 +95,16 @@ public class Banco {
                     menu.menuRegistrar();
                     Usuario usuario = registroUsuario();
                     agregarUsuarioLista(usuario);
-                    scanner.nextLine();
                     sistemaIngresarSaldoRegistro(scanner, usuario, menu);
-                    break;
-                default:
-                    scanner.close();
                     break;
             }
             if (opcion == 3) {
                 menu.mensajeDespedida();
                 break;
             }
-            if (!menu.menuOtraOperacion()) {
-                break;
-            }
+//            if (!menu.menuOtraOperacion()) {
+//                break;
+//            }
         }
     }
 
@@ -273,7 +274,7 @@ public class Banco {
                         if (montoConvertido > 0) {
                             for (Billetera billetera : usuario.getBilleteras()) {
                                 if (billetera.getMoneda().equalsIgnoreCase(monedaOrigen)) {
-                                    billetera.retiroSaldo(cantidadACambiar);
+                                    billetera.restarSaldo(cantidadACambiar);
                                     break;
                                 }
                             }
@@ -281,7 +282,7 @@ public class Banco {
                             boolean billeteraEncontrada = false;
                             for (Billetera billetera : usuario.getBilleteras()) {
                                 if (billetera.getMoneda().equalsIgnoreCase(monedaDestino)) {
-                                    billetera.ingresoSaldo(montoConvertido);
+                                    billetera.sumarSaldo(montoConvertido);
                                     billeteraEncontrada = true;
                                     break;
                                 }
@@ -307,11 +308,9 @@ public class Banco {
                     usuario.verSaldoDisponible();
                     break;
                 default:
-                    scanner.close();
                     break;
             }
             if (opcion == 5) {
-                menu.mensajeDespedida();
                 break;
             }
         }
@@ -401,15 +400,6 @@ public class Banco {
         }
     }
 
-//    public void sistemaAgregarUsuario() {
-//
-//    }
-
-    public void agregarUsuarioLista(Usuario usuario) {
-
-        listaUsuarios.add(usuario);
-    }
-
     public Usuario registroUsuario() {
 
         Scanner scanner = new Scanner(System.in);
@@ -456,8 +446,12 @@ public class Banco {
             }
         }
 
-
         return new Usuario(nombre, apellido, rut, correo, contrasena);
+    }
+
+    public void agregarUsuarioLista(Usuario usuario) {
+
+        listaUsuarios.add(usuario);
     }
 
     public boolean validarRut(String rut) {
