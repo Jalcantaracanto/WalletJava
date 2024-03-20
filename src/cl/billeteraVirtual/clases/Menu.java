@@ -5,7 +5,7 @@ import java.util.Scanner;
 public class Menu {
     //Menus
 
-    public void menuInicio() {
+    public static void menuInicio() {
         System.out.println("=================================");
         System.out.println("|   BIENVENIDO A WALLET BANK    |");
         System.out.println("=================================");
@@ -16,7 +16,7 @@ public class Menu {
         System.out.println("=================================");
     }
 
-    public void menuSeleccioneDivisa() {
+    public static void menuSeleccioneDivisa() {
         System.out.println("=================================");
         System.out.println("|       SELECCIONE DIVISA       |");
         System.out.println("=================================");
@@ -28,7 +28,7 @@ public class Menu {
         System.out.println("=================================");
     }
 
-    public void menuIngresarSaldoRegistro() {
+    public static void menuIngresarSaldoRegistro() {
         System.out.println("=================================");
         System.out.println("|       REGISTRO COMPLETADO     |");
         System.out.println("|     ¿DESEA INGRESAR SALDO?    |");
@@ -37,7 +37,7 @@ public class Menu {
 
     }
 
-    public void menuRegistrar() {
+    public static void menuRegistrar() {
         System.out.println("=================================");
         System.out.println("|           REGISTRO            |");
         System.out.println("=================================");
@@ -46,7 +46,7 @@ public class Menu {
         System.out.println("=================================");
     }
 
-    public void menuConsultasUsuario() {
+    public static void menuConsultasUsuario() {
         System.out.println("=================================");
         System.out.println("|      CONSULTAS AL BANCO       |");
         System.out.println("=================================");
@@ -60,7 +60,7 @@ public class Menu {
 
     }
 
-    public boolean menuOtraOperacion() {
+    public static boolean menuOtraOperacion() {
         Scanner scanner = new Scanner(System.in);
         String salir;
         System.out.println("=================================");
@@ -79,13 +79,13 @@ public class Menu {
 
     //Mensajes
 
-    public void mensajeRutInvalido() {
+    public static void mensajeRutInvalido() {
         System.out.println("=================================");
         System.out.println("|      INGRESE RUT VÁLIDO       |");
         System.out.println("=================================");
     }
 
-    public void mensajeCreacionExitosa() {
+    public static void mensajeCreacionExitosa() {
         Scanner scanner = new Scanner(System.in);
         System.out.println("=================================");
         System.out.println("|    CUENTA CREADA CON ÉXITO    |");
@@ -95,21 +95,21 @@ public class Menu {
     }
 
 
-    public void mensajeCorreoInvalido() {
+    public static void mensajeCorreoInvalido() {
         System.out.println("=================================");
         System.out.println("|    INGRESE CORREO VÁLIDO      |");
         System.out.println("=================================");
 
     }
 
-    public void mensajeContrasenaDistinta() {
+    public static void mensajeContrasenaDistinta() {
         System.out.println("=================================");
         System.out.println("|   CONTRASEÑAS NO COINCIDEN,   |");
         System.out.println("|       INTENTE NUEVAMENTE      |");
         System.out.println("=================================");
     }
 
-    public void mensajeResponderSN() {
+    public static void mensajeResponderSN() {
         Scanner scanner = new Scanner(System.in);
         System.out.println("================================");
         System.out.println("|     DEBE RESPONDER (S/N)     |");
@@ -118,14 +118,14 @@ public class Menu {
         scanner.nextLine();
     }
 
-    public void mensajeIngresoRegistroSaldoInvalido() {
+    public static void mensajeIngresoRegistroSaldoInvalido() {
         System.out.println("================================");
         System.out.println("| SOLO PUEDE INGRESAR NÚMEROS  |");
         System.out.println("|            1 AL 4            |");
         System.out.println("================================");
     }
 
-    public void mensajeOpcionInvalida() {
+    public static void mensajeOpcionInvalida() {
         Scanner scanner = new Scanner(System.in);
         System.out.println("================================");
         System.out.println("|        OPCIÓN INVÁLIDA       |");
@@ -135,14 +135,14 @@ public class Menu {
         scanner.nextLine();
     }
 
-    public void mensajeDespedida() {
+    public static void mensajeDespedida() {
         System.out.println("================================");
         System.out.println("|    QUE TENGA UN BUEN DÍA,    |");
         System.out.println("|         HASTA LUEGO          |");
         System.out.println("================================");
     }
 
-    public void mensajeSaldoInvalido() {
+    public static void mensajeSaldoInvalido() {
         System.out.println("================================");
         System.out.println("|    SOLO SE PERMITE INGRESO    |");
         System.out.println("|          DE NÚMEROS           |");
@@ -150,7 +150,7 @@ public class Menu {
     }
 
 
-    public void mensajeConexionExitosa() {
+    public static void mensajeConexionExitosa() {
         System.out.println("=================================");
         System.out.println("|       CONEXIÓN ÉXITOSA        |");
         System.out.println("=================================");
@@ -201,7 +201,7 @@ public class Menu {
         System.out.println("=================================");
     }
 
-    public boolean mensajeConexionFallida() {
+    public static boolean mensajeConexionFallida() {
         Scanner scanner = new Scanner(System.in);
         String salir;
         System.out.println("=================================");

@@ -1,5 +1,3 @@
-import cl.billeteraVirtual.clases.Banco;
-import cl.billeteraVirtual.clases.Billetera;
 import cl.billeteraVirtual.clases.Usuario;
 
 public class Main {
