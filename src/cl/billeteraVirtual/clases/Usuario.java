@@ -73,19 +73,6 @@ public class Usuario {
         this.contrasena = contrasena;
     }
 
-
-    // 4 - Métodos de compartimiento
-    @Override
-    public String toString() {
-        return "cl.billeteraVirtual.clases.Usuario{" +
-                "nombre='" + nombre + '\'' +
-                ", apellido='" + apellido + '\'' +
-                ", rut='" + rut + '\'' +
-                ", correo='" + correo + '\'' +
-                ", contraseña='" + contrasena + '\'' +
-                '}';
-    }
-
     // 5 - Métodos Custom
 
     public void agregarBilletera(Billetera billetera) {

@@ -306,23 +306,16 @@ public class Banco {
             while (true) {
 
                 do {
-                    // AJUSTAR PARA HACER SOLO CON IF
-                    try {
-                        menu.menuSeleccioneDivisa();
+                    menu.menuSeleccioneDivisa();
+                    if (scanner.hasNextInt()) {
                         System.out.print("Respuesta: ");
-                        while (!scanner.hasNextLine()) {
-                            menu.mensajeIngresoRegistroSaldoInvalido();
-                            System.out.print("Respuesta: ");
-                            scanner.nextLine();
-                        }
                         tipoSaldo = scanner.nextInt();
-
                         if (tipoSaldo < 1 || tipoSaldo > 4) {
                             menu.mensajeIngresoRegistroSaldoInvalido();
                             System.out.print("Respuesta: ");
+                            tipoSaldo = scanner.nextInt();
                         }
-
-                    } catch (InputMismatchException e) {
+                    } else {
                         menu.mensajeIngresoRegistroSaldoInvalido();
                         scanner.nextLine();
                     }
