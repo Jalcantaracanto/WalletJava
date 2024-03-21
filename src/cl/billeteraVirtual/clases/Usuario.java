@@ -9,10 +9,10 @@ public class Usuario {
     // 1 - Atributos
     private long idUsuario;
     private String nombre, apellido, rut, correo, contrasena;
-    private List<Cuenta> cuentas;
+    private List<Cuenta> listaCuentas;
 
     public Usuario(List<Cuenta> cuentas) {
-        this.cuentas = cuentas;
+        this.listaCuentas = listaCuentas;
     }
 
     public Usuario(long idUsuario, String nombre, String apellido, String rut, String correo, String contrasena) {
@@ -134,6 +134,15 @@ public class Usuario {
     public void listarUsuario() {
         //Áun sin utilizar
     }
+
+    public void agregarCuenta(Cuenta cuenta) {
+        this.listaCuentas.add(cuenta);
+    }
+
+    public void loginUsuario(){
+
+    }
+
 
     public boolean validarRut(String rut) {
 

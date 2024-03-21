@@ -156,31 +156,10 @@ public class Menu {
         System.out.println("=================================");
     }
 
-    public static void mensajeIngresoRegistroSaldoExitoso(int tipoSaldo, double saldo) {
-        String formatoSaldo = "";
-        String moneda = "";
+    public static void mensajeIngresoRegistroSaldoExitoso(int saldo) {
+        String moneda = "Pesos";
+        String formatoSaldo = "$%d";
 
-        switch (tipoSaldo) {
-            case 1:
-                formatoSaldo = "$%,.0f";
-                moneda = "Peso:";
-                break;
-            case 2:
-                formatoSaldo = "$%,.2f";
-                moneda = "Dólar:";
-                break;
-            case 3:
-                formatoSaldo = "€%,.2f";
-                moneda = "Euro:";
-                break;
-            case 4:
-                formatoSaldo = "¥%,.0f";
-                moneda = "Yen:";
-                break;
-            default:
-                System.out.println("Tipo de saldo no válido.");
-                return;
-        }
 
         String saldoFormateado = String.format(formatoSaldo, saldo);
 

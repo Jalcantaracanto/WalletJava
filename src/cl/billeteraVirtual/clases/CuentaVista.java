@@ -1,5 +1,8 @@
 package cl.billeteraVirtual.clases;
 
+import java.util.Scanner;
+import java.util.UUID;
+
 public class CuentaVista extends Cuenta implements Transaccion {
     private int saldo;
     private long nroCuenta;
@@ -8,9 +11,48 @@ public class CuentaVista extends Cuenta implements Transaccion {
         super(idCuenta, cuentaUsuario);
     }
 
+    public CuentaVista(long idCuenta, Usuario cuentaUsuario, int saldo, long nroCuenta) {
+        super(idCuenta, cuentaUsuario);
+        this.saldo = saldo;
+        this.nroCuenta = nroCuenta;
+    }
+
+    public int getSaldo() {
+        return saldo;
+    }
+
+    public void setSaldo(int saldo) {
+        this.saldo = saldo;
+    }
+
+    public long getNroCuenta() {
+        return nroCuenta;
+    }
+
+    public void setNroCuenta(long nroCuenta) {
+        this.nroCuenta = nroCuenta;
+    }
+
+
+
     @Override
     public void crearCuenta() {
+        Scanner scanner = new Scanner(System.in);
 
+        // Generar un identificador único para la cuenta
+        UUID uuid = UUID.randomUUID();
+        long mostSignificantBits = uuid.getMostSignificantBits();
+        long leastSignificantBits = uuid.getLeastSignificantBits();
+        long idCuenta = mostSignificantBits ^ leastSignificantBits;
+        long nroCuenta = uuid.getMostSignificantBits();
+
+        System.out.print("Ingrese saldo: ");
+        int saldoInicial = scanner.nextInt();
+
+        CuentaVista nuevaCuenta = new CuentaVista(idCuenta, getCuentaUsuario(), saldoInicial, nroCuenta);
+        getCuentaUsuario().agregarCuenta(nuevaCuenta);
+
+        System.out.println("Cuenta creada exitosamente.");
     }
 
     @Override
@@ -21,17 +63,42 @@ public class CuentaVista extends Cuenta implements Transaccion {
 
     @Override
     public void ingresarSaldo(int monto) {
-
+        this.saldo += monto;
+        System.out.printf("Sú nuevo saldo es: %d\n", this.saldo);
     }
 
     @Override
     public void retirarSaldo(int monto) {
-
+        this.saldo -= monto;
+        System.out.printf("Sú nuevo saldo es: %d\n", this.saldo);
     }
 
     @Override
     public void mostrarSaldo() {
+        Scanner scanner = new Scanner(System.in);
+        String formatoSaldo = "";
+        String moneda = "Pesos";
 
+        System.out.println("=================================");
+        System.out.println("|       SALDO DISPONIBLE      |");
+        System.out.println("=================================");
+
+        String saldoFormateado = String.format(formatoSaldo, getSaldo());
+
+        if (saldoFormateado.length() > 27) {
+            saldoFormateado = saldoFormateado.substring(0, 27);
+        }
+
+        int longitudMoneda = moneda.length();
+        int longitudSaldo = saldoFormateado.length();
+
+        int espaciosEntreMonedaYSaldo = 27 - longitudMoneda - longitudSaldo;
+        System.out.printf("| %s %-" + espaciosEntreMonedaYSaldo + "s %s |%n", moneda, "", saldoFormateado);
+
+
+        System.out.println("=================================");
+        System.out.println("Presione ENTER para continuar...");
+        scanner.nextLine();
     }
 
     @Override
