@@ -41,27 +41,27 @@ public class CuentaVista extends Cuenta implements Transaccion {
 
 
     @Override
-    public void crearCuenta() {
+    public void crearCuenta(Boolean cuentaNueva) {
+
         Scanner scanner = new Scanner(System.in);
 
-        // Generar un identificador único para la cuenta
         UUID uuid = UUID.randomUUID();
         long mostSignificantBits = uuid.getMostSignificantBits();
         long leastSignificantBits = uuid.getLeastSignificantBits();
         long idCuenta = mostSignificantBits ^ leastSignificantBits;
         long nroCuenta = uuid.getMostSignificantBits();
 
-        System.out.print("Ingrese saldo: ");
-        int saldoInicial = scanner.nextInt();
-
-        CuentaVista nuevaCuenta = new CuentaVista(idCuenta, getCuentaUsuario(), saldoInicial, nroCuenta, tipoCuenta);
-        getCuentaUsuario().agregarCuenta(nuevaCuenta);
-
-        System.out.println("Cuenta creada exitosamente.");
-    }
-
-    @Override
-    public void listarCuenta() {
+        if (cuentaNueva) {
+            System.out.print("Ingrese saldo: ");
+            int saldoInicial = scanner.nextInt();
+            CuentaVista nuevaCuenta = new CuentaVista(idCuenta, getCuentaUsuario(), saldoInicial, nroCuenta, tipoCuenta);
+            getCuentaUsuario().agregarCuenta(nuevaCuenta);
+            System.out.println("Cuenta creada exitosamente.");
+        } else {
+            CuentaVista nuevaCuenta = new CuentaVista(idCuenta, getCuentaUsuario(), 0, nroCuenta, tipoCuenta);
+            getCuentaUsuario().agregarCuenta(nuevaCuenta);
+            System.out.println("Cuenta creada exitosamente.");
+        }
 
     }
 
@@ -106,8 +106,5 @@ public class CuentaVista extends Cuenta implements Transaccion {
         scanner.nextLine();
     }
 
-    @Override
-    public void comprobarSaldo() {
 
-    }
 }

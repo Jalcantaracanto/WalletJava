@@ -11,10 +11,6 @@ public class Usuario {
     private String nombre, apellido, rut, correo, contrasena;
     private List<Cuenta> listaCuentas = new ArrayList<Cuenta>();
 
-    public Usuario(List<Cuenta> listaCuenta) {
-        this.listaCuentas = listaCuenta;
-    }
-
     public Usuario(long idUsuario, String nombre, String apellido, String rut, String correo, String contrasena) {
         this.idUsuario = idUsuario;
         this.nombre = nombre;
@@ -32,57 +28,14 @@ public class Usuario {
         return listaCuentas;
     }
 
-    public void setListaCuenta(List<Cuenta> listaCuenta) {
-        this.listaCuentas = listaCuenta;
-    }
-
-    public long getIdUsuario() {
-        return idUsuario;
-    }
-
-    public void setIdUsuario(long idUsuario) {
-        this.idUsuario = idUsuario;
-    }
-
-    public String getNombre() {
-        return nombre;
-    }
-
-    public void setNombre(String nombre) {
-        this.nombre = nombre;
-    }
-
-    public String getApellido() {
-        return apellido;
-    }
-
-    public void setApellido(String apellido) {
-        this.apellido = apellido;
-    }
-
-    public String getRut() {
-        return rut;
-    }
-
-    public void setRut(String rut) {
-        this.rut = rut;
-    }
-
     public String getCorreo() {
         return correo;
-    }
-
-    public void setCorreo(String correo) {
-        this.correo = correo;
     }
 
     public String getContrasena() {
         return contrasena;
     }
 
-    public void setContrasena(String contrasena) {
-        this.contrasena = contrasena;
-    }
 
     //Métodos Custom
 
@@ -143,7 +96,6 @@ public class Usuario {
         this.listaCuentas.add(cuenta);
     }
 
-
     public boolean validarRut(String rut) {
 
         boolean validacion = false;
@@ -193,7 +145,6 @@ public class Usuario {
             return format.toString();
         }
     }
-
 
     public boolean validarCorreo(String correo) {
         // Expresión regular simple para validar un correo electrónico

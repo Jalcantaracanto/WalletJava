@@ -13,26 +13,15 @@ public abstract class Cuenta {
 
     }
 
-    public long getIdCuenta() {
-        return idCuenta;
-    }
-
-    public void setIdCuenta(long idCuenta) {
-        this.idCuenta = idCuenta;
-    }
 
     public Usuario getCuentaUsuario() {
         return cuentaUsuario;
     }
 
-    public void setCuentaUsuario(Usuario cuentaUsuario) {
-        this.cuentaUsuario = cuentaUsuario;
-    }
 
     // Métodos Custom
 
-    public abstract void crearCuenta();
+    public abstract void crearCuenta(Boolean cuentaNueva);
 
-    public abstract void listarCuenta();
 
 }

@@ -7,5 +7,4 @@ public interface Transaccion {
 
     void mostrarSaldo();
 
-    void comprobarSaldo();
 }

@@ -5,8 +5,8 @@ import java.util.UUID;
 
 public class SistemaBanco {
 
-    public static void sistemaBanco(Banco banco) {
-//        Banco banco = new Banco();
+    public static void sistemaBanco() {
+        Banco banco = new Banco();
         Scanner scanner = new Scanner(System.in);
         int opcion;
         while (true) {
@@ -32,7 +32,7 @@ public class SistemaBanco {
                     Usuario usuario = new Usuario();
                     usuario = usuario.crearUsuario();
                     banco.agregarUsuario(usuario);
-                    ingresarSaldoInicial(scanner, usuario);
+                    sistemaIngresarSaldoInicial(scanner, usuario);
                     break;
             }
             if (opcion == 3) {
@@ -88,7 +88,6 @@ public class SistemaBanco {
                             euro.convertirSaldo(cuentaVista.getSaldo());
                             break;
                     }
-
                     break;
                 case 4:
                     cuentaVista.mostrarSaldo();
@@ -100,45 +99,26 @@ public class SistemaBanco {
     }
 
 
-    public static void ingresarSaldoInicial(Scanner scanner, Usuario usuario) {
+    public static void sistemaIngresarSaldoInicial(Scanner scanner, Usuario usuario) {
         String saldoInicial = "";
+        boolean entradaValida = true;
+        CuentaVista cuentaVista = new CuentaVista();
         do {
-            // AJUSTAR PARA HACER SOLO CON IF
-            try {
-                Menu.menuIngresarSaldoRegistro();
-                System.out.print("Respuesta: ");
-                saldoInicial = scanner.nextLine();
-
-                if (!saldoInicial.equalsIgnoreCase("n") && !saldoInicial.equalsIgnoreCase("s")) {
-                    Menu.mensajeResponderSN();
-                }
-            } catch (IllegalArgumentException e) {
-                System.out.println(e.getMessage());
+            Menu.menuIngresarSaldoRegistro();
+            System.out.println("Respuesta: ");
+            saldoInicial = scanner.nextLine();
+            if (saldoInicial.equalsIgnoreCase("s") || saldoInicial.equalsIgnoreCase("n")) {
+                entradaValida = true;
+            } else {
+                Menu.mensajeResponderSN();
             }
 
-        } while (!saldoInicial.equalsIgnoreCase("n") && !saldoInicial.equalsIgnoreCase("s"));
+        } while (!entradaValida);
 
         if (saldoInicial.equalsIgnoreCase("s")) {
-            int saldo;
-
-            UUID uuid = UUID.randomUUID();
-            long mostSignificantBits = uuid.getMostSignificantBits();
-            long leastSignificantBits = uuid.getLeastSignificantBits();
-            long idCuenta = mostSignificantBits ^ leastSignificantBits;
-            long nroCuenta = uuid.getMostSignificantBits();
-
-            System.out.println("Ingrese Cantidad: ");
-            while (!scanner.hasNextDouble()) {
-                Menu.mensajeSaldoInvalido();
-                System.out.print("Ingrese Cantidad: \n");
-                scanner.nextLine();
-                scanner.nextLine();
-            }
-            saldo = scanner.nextInt();
-            Menu.mensajeIngresoRegistroSaldoExitoso(saldo);
-            CuentaVista cuentaVista = new CuentaVista(idCuenta, usuario, saldo, nroCuenta, "Cuenta Vista");
-            usuario.agregarCuenta(cuentaVista);
-            scanner.nextLine();
+            cuentaVista.crearCuenta(true);
+        } else {
+            cuentaVista.crearCuenta(false);
         }
     }
 }
