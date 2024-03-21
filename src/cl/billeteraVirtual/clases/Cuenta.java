@@ -18,6 +18,9 @@ public abstract class Cuenta {
         return cuentaUsuario;
     }
 
+    public void setCuentaUsuario(Usuario cuentaUsuario) {
+        this.cuentaUsuario = cuentaUsuario;
+    }
 
     // Métodos Custom
 

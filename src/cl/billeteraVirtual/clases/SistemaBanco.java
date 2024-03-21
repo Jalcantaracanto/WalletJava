@@ -5,8 +5,8 @@ import java.util.UUID;
 
 public class SistemaBanco {
 
-    public static void sistemaBanco() {
-        Banco banco = new Banco();
+    public static void sistemaBanco(Banco banco) {
+//        Banco banco = new Banco();
         Scanner scanner = new Scanner(System.in);
         int opcion;
         while (true) {
@@ -103,9 +103,10 @@ public class SistemaBanco {
         String saldoInicial = "";
         boolean entradaValida = true;
         CuentaVista cuentaVista = new CuentaVista();
+        cuentaVista.setCuentaUsuario(usuario);
         do {
             Menu.menuIngresarSaldoRegistro();
-            System.out.println("Respuesta: ");
+            System.out.print("Respuesta: ");
             saldoInicial = scanner.nextLine();
             if (saldoInicial.equalsIgnoreCase("s") || saldoInicial.equalsIgnoreCase("n")) {
                 entradaValida = true;

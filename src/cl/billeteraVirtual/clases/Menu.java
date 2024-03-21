@@ -3,6 +3,7 @@ package cl.billeteraVirtual.clases;
 import java.util.Scanner;
 
 public class Menu {
+
     //Menus
 
     public static void menuInicio() {
@@ -115,12 +116,6 @@ public class Menu {
         scanner.nextLine();
     }
 
-    public static void mensajeIngresoRegistroSaldoInvalido() {
-        System.out.println("================================");
-        System.out.println("| SOLO PUEDE INGRESAR NÚMEROS  |");
-        System.out.println("|            1 AL 4            |");
-        System.out.println("================================");
-    }
 
     public static void mensajeOpcionInvalida() {
         Scanner scanner = new Scanner(System.in);
@@ -182,7 +177,7 @@ public class Menu {
         String salir;
         System.out.println("=================================");
         System.out.println("|     USUARIO Y/O CONTRASEÑA    |");
-        System.out.println("|          NO ENCONTRADO        |");
+        System.out.println("|           INVALIDAS           |");
         System.out.println("|  ¿DESEA INTENTAR NUEVAMENTE?  |");
         System.out.println("|             (S/N)             |");
         System.out.println("=================================");
@@ -195,4 +190,12 @@ public class Menu {
             return false;
         }
     }
+
+    public static void mensajeNoExistenUsuarios() {
+        System.out.println("=================================");
+        System.out.println("|      NO EXISTEN USUARIOS      |");
+        System.out.println("|          EN EL BANCO          |");
+        System.out.println("=================================");
+    }
+
 }

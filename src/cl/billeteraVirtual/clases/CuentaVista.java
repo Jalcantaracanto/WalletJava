@@ -56,11 +56,11 @@ public class CuentaVista extends Cuenta implements Transaccion {
             int saldoInicial = scanner.nextInt();
             CuentaVista nuevaCuenta = new CuentaVista(idCuenta, getCuentaUsuario(), saldoInicial, nroCuenta, tipoCuenta);
             getCuentaUsuario().agregarCuenta(nuevaCuenta);
-            System.out.println("Cuenta creada exitosamente.");
+            Menu.mensajeCreacionExitosa();
         } else {
             CuentaVista nuevaCuenta = new CuentaVista(idCuenta, getCuentaUsuario(), 0, nroCuenta, tipoCuenta);
             getCuentaUsuario().agregarCuenta(nuevaCuenta);
-            System.out.println("Cuenta creada exitosamente.");
+            Menu.mensajeCreacionExitosa();
         }
 
     }

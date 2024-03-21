@@ -41,31 +41,32 @@ public class Banco {
     public void buscarUsuario() {
         Scanner scanner = new Scanner(System.in);
         Banco banco = new Banco();
-        boolean encontrado = false;
         boolean continuar = false;
+        boolean encontrado = false;
+        do {
+            String correoIngreso, contrasena;
+            System.out.print("Ingrese Correo: ");
+            correoIngreso = scanner.nextLine();
+            System.out.print("Ingrese Contraseña: ");
+            contrasena = scanner.nextLine();
 
-        String correoIngreso, contrasena;
-        System.out.print("Ingrese Correo: ");
-        correoIngreso = scanner.nextLine();
-        System.out.print("Ingrese Contraseña: ");
-        contrasena = scanner.nextLine();
-
-
-        if (getListaUsuarios().size() == 0) {
-            System.out.println("No existen usuarios registrados");
-        } else {
-            for (Usuario usuario : getListaUsuarios()) {
-                if (usuario.getCorreo().equalsIgnoreCase(correoIngreso) && usuario.getContrasena().equals(contrasena)) {
-                    Menu.mensajeConexionExitosa();
-                    SistemaBanco.sistemaUsuario(scanner, usuario);
-                    encontrado = true;
-                    continuar = true;
-                    break;
-                } else {
-                    System.out.println("No Existe ningun Usuario");
+            if (getListaUsuarios().size() == 0) {
+                Menu.mensajeNoExistenUsuarios();
+            } else {
+                for (Usuario usuario : getListaUsuarios()) {
+                    if (usuario.getCorreo().equalsIgnoreCase(correoIngreso) && usuario.getContrasena().equals(contrasena)) {
+                        Menu.mensajeConexionExitosa();
+                        SistemaBanco.sistemaUsuario(scanner, usuario);
+                        encontrado = true;
+                        continuar = true;
+                        break;
+                    }
+                }
+                if (!encontrado) {
+                    continuar = Menu.mensajeConexionFallida();
                 }
             }
-        }
+        } while (continuar);
     }
 
 }
