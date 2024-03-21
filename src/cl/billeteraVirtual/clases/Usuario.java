@@ -9,10 +9,10 @@ public class Usuario {
     // 1 - Atributos
     private long idUsuario;
     private String nombre, apellido, rut, correo, contrasena;
-    private List<Cuenta> listaCuentas;
+    private List<Cuenta> listaCuentas = new ArrayList<Cuenta>();
 
-    public Usuario(List<Cuenta> cuentas) {
-        this.listaCuentas = listaCuentas;
+    public Usuario(List<Cuenta> listaCuenta) {
+        this.listaCuentas = listaCuenta;
     }
 
     public Usuario(long idUsuario, String nombre, String apellido, String rut, String correo, String contrasena) {
@@ -26,6 +26,14 @@ public class Usuario {
 
     public Usuario() {
 
+    }
+
+    public List<Cuenta> getListaCuenta() {
+        return listaCuentas;
+    }
+
+    public void setListaCuenta(List<Cuenta> listaCuenta) {
+        this.listaCuentas = listaCuenta;
     }
 
     public long getIdUsuario() {
@@ -131,16 +139,8 @@ public class Usuario {
         return new Usuario(id, nombre, apellido, rut, correo, contrasena);
     }
 
-    public void listarUsuario() {
-        //Áun sin utilizar
-    }
-
     public void agregarCuenta(Cuenta cuenta) {
         this.listaCuentas.add(cuenta);
-    }
-
-    public void loginUsuario(){
-
     }
 
 

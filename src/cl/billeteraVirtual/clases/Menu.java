@@ -57,7 +57,16 @@ public class Menu {
         System.out.println("|          4. Ver Saldo         |");
         System.out.println("|          5. Salir             |");
         System.out.println("=================================");
+    }
 
+    public static void menuSeleccionarDivisa() {
+        System.out.println("=================================");
+        System.out.println("|       CONVERSOR DIVISA        |");
+        System.out.println("=================================");
+        System.out.println("|   Opciones:                   |");
+        System.out.println("|          1. Dólar             |");
+        System.out.println("|          2. Euro              |");
+        System.out.println("=================================");
     }
 
     public static boolean menuOtraOperacion() {

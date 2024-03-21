@@ -1,15 +1,14 @@
 package cl.billeteraVirtual.clases;
 
-import java.util.List;
-import java.util.Scanner;
-import java.util.UUID;
+import java.util.*;
 
 public class Banco {
     private String nombre;
-    private List<Usuario> listaUsuarios;
+    private List<Usuario> listaUsuarios = new ArrayList<>();
 
 
     public Banco() {
+        this.listaUsuarios = new ArrayList<>();
     }
 
     public Banco(String nombre, List<Usuario> listaUsuarios) {
@@ -35,83 +34,13 @@ public class Banco {
 
 
     //Métodos custom
-
-    public void sistemaBanco() {
-        Scanner scanner = new Scanner(System.in);
-        int opcion;
-        while (true) {
-            while (true) {
-                Menu.menuInicio();
-                System.out.print("Respuesta: ");
-                if (scanner.hasNextInt()) {
-                    opcion = scanner.nextInt();
-                    break;
-                } else {
-                    Menu.mensajeOpcionInvalida();
-                    scanner.nextLine();
-                }
-            }
-            scanner.nextLine();
-
-            switch (opcion) {
-                case 1:
-                    buscarUsuario(scanner);
-                    break;
-                case 2:
-                    Menu.menuRegistrar();
-                    Usuario usuario = new Usuario();
-                    usuario = usuario.crearUsuario();
-                    ingresarSaldoInicial(scanner, usuario);
-                    break;
-            }
-            if (opcion == 3) {
-                Menu.mensajeDespedida();
-                break;
-            }
-        }
-    }
-
-    public void sistemaUsuario(Scanner scanner, Usuario usuario) {
-        int opcion;
-
-        while (true) {
-            Menu.menuConsultasUsuario();
-            System.out.print("Ingrese opción: ");
-            opcion = scanner.nextInt();
-            scanner.nextLine();
-
-            int tipoDivisa = 0;
-            String moneda = "";
-            boolean ingreso = true;
-
-            switch (opcion) {
-                case 1:
-
-                    break;
-                case 2:
-
-                    break;
-                case 3:
-
-                    break;
-                case 4:
-                    break;
-                default:
-                    break;
-            }
-        }
-    }
-
-    public void sistemaCreacionUsuario() {
-
-    }
-
-
     public void agregarUsuario(Usuario usuario) {
         this.listaUsuarios.add(usuario);
     }
 
-    private void buscarUsuario(Scanner scanner) {
+    public void buscarUsuario() {
+        Scanner scanner = new Scanner(System.in);
+        Banco banco = new Banco();
         boolean encontrado = false;
         boolean continuar = false;
 
@@ -121,57 +50,23 @@ public class Banco {
         System.out.print("Ingrese Contraseña: ");
         contrasena = scanner.nextLine();
 
-        for (Usuario usuario : getListaUsuarios()) {
-            if (usuario.getCorreo().equalsIgnoreCase(correoIngreso) && usuario.getContrasena().equals(contrasena)) {
-                Menu.mensajeConexionExitosa();
-                //sistemaUsuario();
-                encontrado = true;
-                continuar = true;
-                break;
-            }
-        }
-    }
 
-    public void ingresarSaldoInicial(Scanner scanner, Usuario usuario) {
-        String saldoInicial = "";
-        do {
-            // AJUSTAR PARA HACER SOLO CON IF
-            try {
-                Menu.menuIngresarSaldoRegistro();
-                System.out.print("Respuesta: ");
-                saldoInicial = scanner.nextLine();
-
-                if (!saldoInicial.equalsIgnoreCase("n") && !saldoInicial.equalsIgnoreCase("s")) {
-                    Menu.mensajeResponderSN();
+        if (getListaUsuarios().size() == 0) {
+            System.out.println("No existen usuarios registrados");
+        } else {
+            for (Usuario usuario : getListaUsuarios()) {
+                if (usuario.getCorreo().equalsIgnoreCase(correoIngreso) && usuario.getContrasena().equals(contrasena)) {
+                    Menu.mensajeConexionExitosa();
+                    SistemaBanco.sistemaUsuario(scanner, usuario);
+                    encontrado = true;
+                    continuar = true;
+                    break;
+                } else {
+                    System.out.println("No Existe ningun Usuario");
                 }
-            } catch (IllegalArgumentException e) {
-                System.out.println(e.getMessage());
             }
-
-        } while (!saldoInicial.equalsIgnoreCase("n") && !saldoInicial.equalsIgnoreCase("s"));
-
-        if (saldoInicial.equalsIgnoreCase("s")) {
-            int saldo;
-            int tipoSaldo = 0;
-
-            UUID uuid = UUID.randomUUID();
-            long mostSignificantBits = uuid.getMostSignificantBits();
-            long leastSignificantBits = uuid.getLeastSignificantBits();
-            long idCuenta = mostSignificantBits ^ leastSignificantBits;
-            long nroCuenta = uuid.getMostSignificantBits();
-
-            System.out.println("Ingrese Cantidad: ");
-            while (!scanner.hasNextDouble()) {
-                Menu.mensajeSaldoInvalido();
-                System.out.print("Ingrese Cantidad: \n");
-                scanner.nextLine();
-                scanner.nextLine();
-            }
-            saldo = scanner.nextInt();
-            Menu.mensajeIngresoRegistroSaldoExitoso(saldo);
-            CuentaVista cuentaVista = new CuentaVista(idCuenta, usuario, saldo, nroCuenta);
-            scanner.nextLine();
         }
     }
+
 }
 

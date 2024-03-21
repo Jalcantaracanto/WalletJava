@@ -6,15 +6,21 @@ import java.util.UUID;
 public class CuentaVista extends Cuenta implements Transaccion {
     private int saldo;
     private long nroCuenta;
+    private String tipoCuenta;
 
     public CuentaVista(long idCuenta, Usuario cuentaUsuario) {
         super(idCuenta, cuentaUsuario);
     }
 
-    public CuentaVista(long idCuenta, Usuario cuentaUsuario, int saldo, long nroCuenta) {
+    public CuentaVista(long idCuenta, Usuario cuentaUsuario, int saldo, long nroCuenta, String tipoCuenta) {
         super(idCuenta, cuentaUsuario);
         this.saldo = saldo;
         this.nroCuenta = nroCuenta;
+        this.tipoCuenta = tipoCuenta;
+    }
+
+    public CuentaVista() {
+        super();
     }
 
     public int getSaldo() {
@@ -34,7 +40,6 @@ public class CuentaVista extends Cuenta implements Transaccion {
     }
 
 
-
     @Override
     public void crearCuenta() {
         Scanner scanner = new Scanner(System.in);
@@ -49,7 +54,7 @@ public class CuentaVista extends Cuenta implements Transaccion {
         System.out.print("Ingrese saldo: ");
         int saldoInicial = scanner.nextInt();
 
-        CuentaVista nuevaCuenta = new CuentaVista(idCuenta, getCuentaUsuario(), saldoInicial, nroCuenta);
+        CuentaVista nuevaCuenta = new CuentaVista(idCuenta, getCuentaUsuario(), saldoInicial, nroCuenta, tipoCuenta);
         getCuentaUsuario().agregarCuenta(nuevaCuenta);
 
         System.out.println("Cuenta creada exitosamente.");
@@ -76,15 +81,16 @@ public class CuentaVista extends Cuenta implements Transaccion {
     @Override
     public void mostrarSaldo() {
         Scanner scanner = new Scanner(System.in);
-        String formatoSaldo = "";
         String moneda = "Pesos";
 
         System.out.println("=================================");
-        System.out.println("|       SALDO DISPONIBLE      |");
+        System.out.println("|       SALDO DISPONIBLE         |");
         System.out.println("=================================");
 
-        String saldoFormateado = String.format(formatoSaldo, getSaldo());
+        // Formatear el saldo correctamente
+        String saldoFormateado = String.format("%d", getSaldo());
 
+        // Recortar la longitud del saldo si es necesario
         if (saldoFormateado.length() > 27) {
             saldoFormateado = saldoFormateado.substring(0, 27);
         }
@@ -94,7 +100,6 @@ public class CuentaVista extends Cuenta implements Transaccion {
 
         int espaciosEntreMonedaYSaldo = 27 - longitudMoneda - longitudSaldo;
         System.out.printf("| %s %-" + espaciosEntreMonedaYSaldo + "s %s |%n", moneda, "", saldoFormateado);
-
 
         System.out.println("=================================");
         System.out.println("Presione ENTER para continuar...");

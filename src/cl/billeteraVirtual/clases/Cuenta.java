@@ -9,6 +9,10 @@ public abstract class Cuenta {
         this.cuentaUsuario = cuentaUsuario;
     }
 
+    public Cuenta() {
+
+    }
+
     public long getIdCuenta() {
         return idCuenta;
     }
