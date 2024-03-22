@@ -8,7 +8,7 @@ public class Euro implements Conversor {
     double valorEuro = 1052.42;
 
     @Override
-    public void convertirSaldo(int saldo) {
+    public void convertirSaldo(double saldo) {
 
         Scanner scanner = new Scanner(System.in);
         double euro = (double) saldo / valorEuro;

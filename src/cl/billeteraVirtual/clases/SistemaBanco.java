@@ -47,12 +47,20 @@ public class SistemaBanco {
         int opcion;
 
         while (true) {
-            Menu.menuConsultasUsuario();
-            System.out.print("Ingrese opción: ");
-            opcion = scanner.nextInt();
-            scanner.nextLine();
-            int monto;
             CuentaVista cuentaVista = null;
+
+            while (true) {
+                Menu.menuConsultasUsuario();
+                System.out.print("Opción: ");
+                if (scanner.hasNextInt()) {
+                    opcion = scanner.nextInt();
+                    break;
+                } else {
+                    Menu.mensajeOpcionInvalida();
+                    scanner.nextLine();
+                }
+
+            }
 
             for (Cuenta cuenta : usuario.getListaCuenta()) {
                 if (cuenta instanceof CuentaVista) {
@@ -63,18 +71,14 @@ public class SistemaBanco {
 
             switch (opcion) {
                 case 1:
-                    System.out.print("Ingrese Cantidad: ");
-                    monto = scanner.nextInt();
-                    cuentaVista.ingresarSaldo(monto);
+                    cuentaVista.ingresarSaldo(validarIntSaldo(true));
                     break;
                 case 2:
-                    System.out.print("Ingrese Cantidad: ");
-                    monto = scanner.nextInt();
-                    cuentaVista.retirarSaldo(monto);
+                    cuentaVista.retirarSaldo(validarIntSaldo(false));
                     break;
                 case 3:
                     Menu.menuSeleccionarDivisa();
-                    System.out.print("Respuesta: ");
+                    System.out.print("Opción: ");
                     int tipoConversor = scanner.nextInt();
                     int saldo;
 
@@ -94,6 +98,11 @@ public class SistemaBanco {
                     break;
                 default:
                     break;
+
+            }
+
+            if (opcion == 5) {
+                break;
             }
         }
     }
@@ -120,6 +129,22 @@ public class SistemaBanco {
             cuentaVista.crearCuenta(true);
         } else {
             cuentaVista.crearCuenta(false);
+        }
+    }
+
+    private static int validarIntSaldo(boolean ingreso) {
+        Scanner scanner = new Scanner(System.in);
+        int monto;
+
+        while (true) {
+            System.out.print(ingreso ? "Ingrese Cantidad a Retirar: " : "Ingrese Cantidad a Ingresar: ");
+            if (scanner.hasNextInt()) {
+                monto = scanner.nextInt();
+                return monto;
+            } else {
+                Menu.mensajeSaldoInvalido();
+                scanner.nextLine();
+            }
         }
     }
 }

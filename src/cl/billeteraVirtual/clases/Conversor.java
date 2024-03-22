@@ -2,6 +2,6 @@ package cl.billeteraVirtual.clases;
 
 public interface Conversor {
 
-    void convertirSaldo(int saldo);
+    void convertirSaldo(double saldo);
 
 }

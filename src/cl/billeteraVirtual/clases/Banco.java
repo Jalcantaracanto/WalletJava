@@ -58,7 +58,6 @@ public class Banco {
                         Menu.mensajeConexionExitosa();
                         SistemaBanco.sistemaUsuario(scanner, usuario);
                         encontrado = true;
-                        continuar = true;
                         break;
                     }
                 }

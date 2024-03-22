@@ -1,5 +1,8 @@
 package cl.billeteraVirtual.clases;
 
+import java.text.DecimalFormat;
+import java.text.NumberFormat;
+import java.util.Locale;
 import java.util.Scanner;
 
 public class Menu {
@@ -101,10 +104,13 @@ public class Menu {
     }
 
     public static void mensajeContrasenaDistinta() {
+        Scanner scanner = new Scanner(System.in);
         System.out.println("=================================");
         System.out.println("|   CONTRASEÑAS NO COINCIDEN,   |");
         System.out.println("|       INTENTE NUEVAMENTE      |");
         System.out.println("=================================");
+        System.out.println("Presione enter para continuar...");
+        scanner.nextLine();
     }
 
     public static void mensajeResponderSN() {
@@ -135,10 +141,14 @@ public class Menu {
     }
 
     public static void mensajeSaldoInvalido() {
+        Scanner scanner = new Scanner(System.in);
         System.out.println("================================");
         System.out.println("|    SOLO SE PERMITE INGRESO    |");
         System.out.println("|          DE NÚMEROS           |");
         System.out.println("================================");
+        System.out.println("Presione enter para continuar...");
+        scanner.nextLine();
+
     }
 
 
@@ -148,12 +158,13 @@ public class Menu {
         System.out.println("=================================");
     }
 
-    public static void mensajeIngresoRegistroSaldoExitoso(int saldo) {
+    public static void mensajeIngresoRetiroSaldo(double saldo, boolean ingreso) {
+        Scanner scanner = new Scanner(System.in);
         String moneda = "Pesos";
-        String formatoSaldo = "$%d";
 
-
-        String saldoFormateado = String.format(formatoSaldo, saldo);
+        DecimalFormat decimalFormat = (DecimalFormat) NumberFormat.getInstance(Locale.US);
+        decimalFormat.applyPattern("#,###.##");
+        String saldoFormateado = "$" + decimalFormat.format(saldo);
 
         if (saldoFormateado.length() > 27) {
             saldoFormateado = saldoFormateado.substring(0, 27);
@@ -166,10 +177,13 @@ public class Menu {
 
         // Imprimir saldo
         System.out.println("=================================");
-        System.out.println("|   Saldo ingresado con éxito   |");
+        System.out.println(ingreso ? "|   SALDO INGRESADO CON ÉXITO   |" : "|  RETIRO DE SALDO EXITOSO      |");
+        System.out.println("|          SALDO ACTUAL         |");
         System.out.println("=================================");
         System.out.printf("| %s %-" + espaciosEntreMonedaYSaldo + "s %s |%n", moneda, "", saldoFormateado);
         System.out.println("=================================");
+        System.out.println("Presione enter para continuar...");
+        scanner.nextLine();
     }
 
     public static boolean mensajeConexionFallida() {
@@ -192,10 +206,23 @@ public class Menu {
     }
 
     public static void mensajeNoExistenUsuarios() {
+        Scanner scanner = new Scanner(System.in);
         System.out.println("=================================");
         System.out.println("|      NO EXISTEN USUARIOS      |");
         System.out.println("|          EN EL BANCO          |");
         System.out.println("=================================");
+        System.out.println("Presione enter para continuar...");
+        scanner.nextLine();
+    }
+
+    public static void mensajeSaldoInsuficiente() {
+        Scanner scanner = new Scanner(System.in);
+        System.out.println("=================================");
+        System.out.println("|      SALDO INSUFICIENTE       |");
+        System.out.println("|          PARA RETIRO          |");
+        System.out.println("=================================");
+        System.out.println("Presione enter para continuar...");
+        scanner.nextLine();
     }
 
 }

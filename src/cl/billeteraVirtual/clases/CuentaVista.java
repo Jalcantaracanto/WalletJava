@@ -1,10 +1,13 @@
 package cl.billeteraVirtual.clases;
 
+import java.text.DecimalFormat;
+import java.text.NumberFormat;
+import java.util.Locale;
 import java.util.Scanner;
 import java.util.UUID;
 
 public class CuentaVista extends Cuenta implements Transaccion {
-    private int saldo;
+    private double saldo;
     private long nroCuenta;
     private String tipoCuenta;
 
@@ -23,7 +26,7 @@ public class CuentaVista extends Cuenta implements Transaccion {
         super();
     }
 
-    public int getSaldo() {
+    public double getSaldo() {
         return saldo;
     }
 
@@ -67,15 +70,21 @@ public class CuentaVista extends Cuenta implements Transaccion {
 
 
     @Override
-    public void ingresarSaldo(int monto) {
+    public void ingresarSaldo(double monto) {
         this.saldo += monto;
-        System.out.printf("Sú nuevo saldo es: %d\n", this.saldo);
+        Menu.mensajeIngresoRetiroSaldo(this.saldo, true);
     }
 
     @Override
-    public void retirarSaldo(int monto) {
-        this.saldo -= monto;
-        System.out.printf("Sú nuevo saldo es: %d\n", this.saldo);
+    public void retirarSaldo(double monto) {
+        double nuevoSaldo = this.saldo - monto;
+
+        if (nuevoSaldo < 0) {
+            Menu.mensajeSaldoInsuficiente();
+        } else {
+            this.saldo = nuevoSaldo;
+            Menu.mensajeIngresoRetiroSaldo(this.saldo, false);
+        }
     }
 
     @Override
@@ -87,10 +96,11 @@ public class CuentaVista extends Cuenta implements Transaccion {
         System.out.println("|       SALDO DISPONIBLE         |");
         System.out.println("=================================");
 
-        // Formatear el saldo correctamente
-        String saldoFormateado = String.format("%d", getSaldo());
+        DecimalFormat decimalFormat = (DecimalFormat) NumberFormat.getInstance(Locale.US);
+        decimalFormat.applyPattern("#,###.##");
+        String saldoFormateado = "$" + decimalFormat.format(getSaldo());
 
-        // Recortar la longitud del saldo si es necesario
+
         if (saldoFormateado.length() > 27) {
             saldoFormateado = saldoFormateado.substring(0, 27);
         }

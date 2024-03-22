@@ -9,7 +9,7 @@ public class Dolar implements Conversor {
 
 
     @Override
-    public void convertirSaldo(int saldo) {
+    public void convertirSaldo(double saldo) {
 
         Scanner scanner = new Scanner(System.in);
         double dolar = (double) saldo / valorDolar;
