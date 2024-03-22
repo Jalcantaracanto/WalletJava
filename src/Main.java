@@ -13,14 +13,12 @@ public class Main {
         long id = mostSignificantBits ^ leastSignificantBits;
         long nroCuenta = uuid.getMostSignificantBits();
 
-
         Usuario usuario1 = new Usuario(id, "Javier", "Alcántara", "18.298.640-2", "asd", "12345");
         banco.agregarUsuario(usuario1);
         CuentaVista cuentaVista = new CuentaVista(id, usuario1, 10000, nroCuenta, "Cuenta Vista");
         usuario1.agregarCuenta(cuentaVista);
 
         SistemaBanco.sistemaBanco(banco);
-
 
     }
 }

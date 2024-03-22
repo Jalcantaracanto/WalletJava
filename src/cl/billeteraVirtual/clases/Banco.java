@@ -11,25 +11,9 @@ public class Banco {
         this.listaUsuarios = new ArrayList<>();
     }
 
-    public Banco(String nombre, List<Usuario> listaUsuarios) {
-        this.nombre = nombre;
-        this.listaUsuarios = listaUsuarios;
-    }
-
-    public String getNombre() {
-        return nombre;
-    }
-
-    public void setNombre(String nombre) {
-        this.nombre = nombre;
-    }
 
     public List<Usuario> getListaUsuarios() {
         return listaUsuarios;
-    }
-
-    public void setListaUsuarios(List<Usuario> listaUsuarios) {
-        this.listaUsuarios = listaUsuarios;
     }
 
 

@@ -61,22 +61,6 @@ public class Menu {
         System.out.println("=================================");
     }
 
-    public static boolean menuOtraOperacion() {
-        Scanner scanner = new Scanner(System.in);
-        String salir;
-        System.out.println("=================================");
-        System.out.println("|¿DESEA REALIZAR OTRA OPERACIÓN?|");
-        System.out.println("|             (S/N)             |");
-        System.out.println("=================================");
-        System.out.print("Respuesta: ");
-        salir = scanner.nextLine();
-        if (salir.equalsIgnoreCase("s")) {
-            System.out.println("\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n");
-            return true;
-        } else {
-            return false;
-        }
-    }
 
     //Mensajes
 
@@ -133,6 +117,15 @@ public class Menu {
         scanner.nextLine();
     }
 
+    public static void mensajeDivisaInvalida(Scanner scanner) {
+        System.out.println("================================");
+        System.out.println("|        OPCION INVÁLIDA       |");
+        System.out.println("|      INTENTE NUEVAMENTE      |");
+        System.out.println("================================");
+        System.out.println("Presione enter para continuar...");
+        scanner.nextLine();
+    }
+
     public static void mensajeDespedida() {
         System.out.println("================================");
         System.out.println("|    QUE TENGA UN BUEN DÍA,    |");
@@ -177,7 +170,7 @@ public class Menu {
 
         // Imprimir saldo
         System.out.println("=================================");
-        System.out.println(ingreso ? "|   SALDO INGRESADO CON ÉXITO   |" : "|  RETIRO DE SALDO EXITOSO      |");
+        System.out.println(ingreso ? "|   SALDO INGRESADO CON ÉXITO   |" : "|    RETIRO DE SALDO EXITOSO    |");
         System.out.println("|          SALDO ACTUAL         |");
         System.out.println("=================================");
         System.out.printf("| %s %-" + espaciosEntreMonedaYSaldo + "s %s |%n", moneda, "", saldoFormateado);

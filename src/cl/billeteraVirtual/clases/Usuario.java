@@ -59,6 +59,16 @@ public class Usuario {
         while (true) {
             System.out.print("Ingrese Rut: ");
             rut = scanner.nextLine();
+            while (true) {
+                if (rut.isEmpty()) {
+                    System.out.println("Debe ingresar un Rut");
+                    System.out.print("Ingrese Rut: ");
+                    rut = scanner.nextLine();
+                } else {
+                    break;
+                }
+            }
+
             if (validarRut(rut)) {
                 rut = formatearRut(rut);
                 break;

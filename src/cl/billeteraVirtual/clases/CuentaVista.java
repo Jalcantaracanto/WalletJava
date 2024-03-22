@@ -11,10 +11,6 @@ public class CuentaVista extends Cuenta implements Transaccion {
     private long nroCuenta;
     private String tipoCuenta;
 
-    public CuentaVista(long idCuenta, Usuario cuentaUsuario) {
-        super(idCuenta, cuentaUsuario);
-    }
-
     public CuentaVista(long idCuenta, Usuario cuentaUsuario, int saldo, long nroCuenta, String tipoCuenta) {
         super(idCuenta, cuentaUsuario);
         this.saldo = saldo;
@@ -28,18 +24,6 @@ public class CuentaVista extends Cuenta implements Transaccion {
 
     public double getSaldo() {
         return saldo;
-    }
-
-    public void setSaldo(int saldo) {
-        this.saldo = saldo;
-    }
-
-    public long getNroCuenta() {
-        return nroCuenta;
-    }
-
-    public void setNroCuenta(long nroCuenta) {
-        this.nroCuenta = nroCuenta;
     }
 
 
@@ -57,6 +41,7 @@ public class CuentaVista extends Cuenta implements Transaccion {
         if (cuentaNueva) {
             System.out.print("Ingrese saldo: ");
             int saldoInicial = scanner.nextInt();
+            scanner.nextLine();
             CuentaVista nuevaCuenta = new CuentaVista(idCuenta, getCuentaUsuario(), saldoInicial, nroCuenta, tipoCuenta);
             getCuentaUsuario().agregarCuenta(nuevaCuenta);
             Menu.mensajeCreacionExitosa();

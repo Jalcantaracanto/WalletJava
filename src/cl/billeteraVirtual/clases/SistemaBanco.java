@@ -1,5 +1,6 @@
 package cl.billeteraVirtual.clases;
 
+import java.util.InputMismatchException;
 import java.util.Scanner;
 import java.util.UUID;
 
@@ -12,14 +13,26 @@ public class SistemaBanco {
         while (true) {
             while (true) {
                 Menu.menuInicio();
-                System.out.print("Respuesta: ");
+                System.out.print("Opción: ");
                 if (scanner.hasNextInt()) {
                     opcion = scanner.nextInt();
-                    break;
+                    if (opcion == 3) {
+                        break;
+                    }
+                    if (opcion >= 1 && opcion <= 2) {
+                        break;
+                    } else {
+                        Menu.mensajeOpcionInvalida();
+                    }
                 } else {
                     Menu.mensajeOpcionInvalida();
                     scanner.nextLine();
                 }
+            }
+
+            if (opcion == 3) {
+                Menu.mensajeDespedida();
+                break;
             }
             scanner.nextLine();
 
@@ -34,10 +47,9 @@ public class SistemaBanco {
                     banco.agregarUsuario(usuario);
                     sistemaIngresarSaldoInicial(scanner, usuario);
                     break;
-            }
-            if (opcion == 3) {
-                Menu.mensajeDespedida();
-                break;
+                default:
+                    Menu.mensajeOpcionInvalida();
+                    break;
             }
         }
     }
@@ -54,12 +66,22 @@ public class SistemaBanco {
                 System.out.print("Opción: ");
                 if (scanner.hasNextInt()) {
                     opcion = scanner.nextInt();
-                    break;
+                    if (opcion == 5) {
+                        break;
+                    }
+                    if (opcion >= 1 && opcion <= 4) {
+                        break;
+                    } else {
+                        Menu.mensajeOpcionInvalida();
+                    }
                 } else {
                     Menu.mensajeOpcionInvalida();
                     scanner.nextLine();
                 }
+            }
 
+            if (opcion == 5) {
+                break;
             }
 
             for (Cuenta cuenta : usuario.getListaCuenta()) {
@@ -77,10 +99,22 @@ public class SistemaBanco {
                     cuentaVista.retirarSaldo(validarIntSaldo(false));
                     break;
                 case 3:
-                    Menu.menuSeleccionarDivisa();
-                    System.out.print("Opción: ");
-                    int tipoConversor = scanner.nextInt();
+                    int tipoConversor = 0;
                     int saldo;
+                    while (tipoConversor != 1 && tipoConversor != 2) {
+                        try {
+                            Menu.menuSeleccionarDivisa();
+                            System.out.print("Opción: ");
+                            tipoConversor = scanner.nextInt();
+
+                            if (tipoConversor != 1 && tipoConversor != 2) {
+                                Menu.mensajeOpcionInvalida();
+                            }
+                        } catch (InputMismatchException e) {
+                            scanner.nextLine();
+                            Menu.mensajeOpcionInvalida();
+                        }
+                    }
 
                     switch (tipoConversor) {
                         case 1:
@@ -96,13 +130,6 @@ public class SistemaBanco {
                 case 4:
                     cuentaVista.mostrarSaldo();
                     break;
-                default:
-                    break;
-
-            }
-
-            if (opcion == 5) {
-                break;
             }
         }
     }

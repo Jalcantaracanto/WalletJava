@@ -13,7 +13,6 @@ public abstract class Cuenta {
 
     }
 
-
     public Usuario getCuentaUsuario() {
         return cuentaUsuario;
     }
