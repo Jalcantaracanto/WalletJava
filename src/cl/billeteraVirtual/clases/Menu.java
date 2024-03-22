@@ -117,15 +117,6 @@ public class Menu {
         scanner.nextLine();
     }
 
-    public static void mensajeDivisaInvalida(Scanner scanner) {
-        System.out.println("================================");
-        System.out.println("|        OPCION INVÁLIDA       |");
-        System.out.println("|      INTENTE NUEVAMENTE      |");
-        System.out.println("================================");
-        System.out.println("Presione enter para continuar...");
-        scanner.nextLine();
-    }
-
     public static void mensajeDespedida() {
         System.out.println("================================");
         System.out.println("|    QUE TENGA UN BUEN DÍA,    |");
