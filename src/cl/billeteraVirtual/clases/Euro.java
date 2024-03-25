@@ -7,6 +7,13 @@ public class Euro implements Conversor {
 
     double valorEuro = 1052.42;
 
+    /**
+     * Método que realiza una conversión de pesos a euros
+     * y muestra el saldo en euros. Unicamente para poder
+     * visualizar lo que se tiene en de saldo en euros.
+     *
+     * @param saldo saldo en pesos a realizar conversión a euros
+     */
     @Override
     public void convertirSaldo(double saldo) {
 

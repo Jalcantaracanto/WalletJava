@@ -8,6 +8,13 @@ public class Dolar implements Conversor {
     double valorDolar = 969.12;
 
 
+    /**
+     * Método que realiza una conversión de pesos a dólares
+     * y muestra el saldo en dólares. Unicamente para poder
+     * visualizar lo que se tiene en de saldo en dólares.
+     *
+     * @param saldo saldo en pesos a realizar conversión a dólares
+     */
     @Override
     public void convertirSaldo(double saldo) {
 

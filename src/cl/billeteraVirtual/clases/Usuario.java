@@ -6,11 +6,13 @@ import java.util.Scanner;
 import java.util.UUID;
 
 public class Usuario {
-    // 1 - Atributos
+
+    //Atributos
     private long idUsuario;
     private String nombre, apellido, rut, correo, contrasena;
     private List<Cuenta> listaCuentas = new ArrayList<Cuenta>();
 
+    //Constructores
     public Usuario(long idUsuario, String nombre, String apellido, String rut, String correo, String contrasena) {
         this.idUsuario = idUsuario;
         this.nombre = nombre;
@@ -24,6 +26,7 @@ public class Usuario {
 
     }
 
+    //Accesadores y Mutadores
     public List<Cuenta> getListaCuenta() {
         return listaCuentas;
     }
@@ -39,6 +42,10 @@ public class Usuario {
 
     //Métodos Custom
 
+    /**
+     * Método que permite crear un usuario. Para esto se solicita al usuario ingresar los datos requeridos.
+     * @return Retorna un objeto de tipo Usuario.
+     */
     public Usuario crearUsuario() {
 
         UUID uuid = UUID.randomUUID();
@@ -102,10 +109,19 @@ public class Usuario {
         return new Usuario(id, nombre, apellido, rut, correo, contrasena);
     }
 
+    /**
+     * Método que permite agregar una cuenta a la lista de cuentas del usuario.
+     * @param cuenta Se recibe un objeto de tipo Cuenta.
+     */
     public void agregarCuenta(Cuenta cuenta) {
         this.listaCuentas.add(cuenta);
     }
 
+
+    /**
+     * Método que realiza la validación del rut ingresado por el usuario.
+     * @return retorna un valor booleano. Que indica si el rut es válido o no.
+     */
     public boolean validarRut(String rut) {
 
         boolean validacion = false;
@@ -156,6 +172,10 @@ public class Usuario {
         }
     }
 
+    /**
+     * Método que realiza la validación del correo ingresado por el usuario.
+     * @return retorna un valor booleano. Que indica si el correo es válido o no.
+     */
     public boolean validarCorreo(String correo) {
         // Expresión regular simple para validar un correo electrónico
         String regex = "^[^@]+@[^@]+\\.[a-zA-Z]{2,}$";

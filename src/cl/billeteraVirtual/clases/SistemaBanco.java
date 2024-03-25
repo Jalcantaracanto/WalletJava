@@ -6,8 +6,14 @@ import java.util.UUID;
 
 public class SistemaBanco {
 
-    public static void sistemaBanco(Banco banco) {
-//        Banco banco = new Banco();
+    /**
+     * Método que accede al sistema del banco, donde te permitirá.
+     * - Ingresar al Sistema como usuario.
+     * - Registrarte como nuevo usuario.
+     * - Salir del sistema.
+     */
+    public static void sistemaBanco() {
+        Banco banco = new Banco("Walletcito");
         Scanner scanner = new Scanner(System.in);
         int opcion;
         while (true) {
@@ -55,6 +61,16 @@ public class SistemaBanco {
     }
 
 
+    /**
+     * Método que accede al sistema del usuario, donde te permitirá:
+     * - Ingresar saldo a la cuenta.
+     * - Retirar saldo de la cuenta.
+     * - Mostrar tu saldo en euros o dólares.
+     * - Ver saldo.
+     * - Salir del sistema y volver atrás.
+     * @param scanner Scanner que se trae para poder ingresar las opciones.
+     * @param usuario Usuario que accede al sistema.
+     */
     public static void sistemaUsuario(Scanner scanner, Usuario usuario) {
         int opcion;
 
@@ -135,6 +151,11 @@ public class SistemaBanco {
     }
 
 
+    /**
+     * Método que permite ingresar saldo inicial a la cuenta del usuario.
+     * @param scanner Se trae el scanner para poder ingresar el saldo inicial.
+     * @param usuario usuario que se le asignará el saldo inicial.
+     */
     public static void sistemaIngresarSaldoInicial(Scanner scanner, Usuario usuario) {
         String saldoInicial = "";
         boolean entradaValida = true;
@@ -159,6 +180,11 @@ public class SistemaBanco {
         }
     }
 
+    /**
+     * Método que permite validar el saldo ingresado por el usuario.
+     * @param ingreso booleano que indica si es un ingreso o un retiro.
+     * @return retorna el saldo ingresado.
+     */
     private static int validarIntSaldo(boolean ingreso) {
         Scanner scanner = new Scanner(System.in);
         int monto;

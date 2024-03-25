@@ -7,10 +7,13 @@ import java.util.Scanner;
 import java.util.UUID;
 
 public class CuentaVista extends Cuenta implements Transaccion {
+
+    // Atributos
     private double saldo;
     private long nroCuenta;
     private String tipoCuenta;
 
+    // Constructor
     public CuentaVista(long idCuenta, Usuario cuentaUsuario, int saldo, long nroCuenta, String tipoCuenta) {
         super(idCuenta, cuentaUsuario);
         this.saldo = saldo;
@@ -22,13 +25,23 @@ public class CuentaVista extends Cuenta implements Transaccion {
         super();
     }
 
+    // Accesadores y mutadores
     public double getSaldo() {
         return saldo;
     }
 
 
+    // Métodos
+
+    /**
+     * Método que permite crear una cuenta vista, para ello se solicita el saldo inicial
+     * y se crea un objeto de tipo CuentaVista, el cual se agrega a la lista de cuentas del usuario
+     * A demás verifica si el usuario desea ingresar un saldo inicial a la cuenta.
+     *
+     * @param nuevoSaldo Indica si desea ingresar un saldo inicial o no.
+     */
     @Override
-    public void crearCuenta(Boolean cuentaNueva) {
+    public void crearCuenta(Boolean nuevoSaldo) {
 
         Scanner scanner = new Scanner(System.in);
 
@@ -38,7 +51,7 @@ public class CuentaVista extends Cuenta implements Transaccion {
         long idCuenta = mostSignificantBits ^ leastSignificantBits;
         long nroCuenta = uuid.getMostSignificantBits();
 
-        if (cuentaNueva) {
+        if (nuevoSaldo) {
             System.out.print("Ingrese saldo: ");
             int saldoInicial = scanner.nextInt();
             scanner.nextLine();
@@ -54,12 +67,24 @@ public class CuentaVista extends Cuenta implements Transaccion {
     }
 
 
+    /**
+     * Método que permite ingresar saldo a la cuenta vista, para ello se solicita el monto a ingresar
+     * y se actualiza el saldo de la cuenta.
+     *
+     * @param monto Monto a ingresar a la cuenta.
+     */
     @Override
     public void ingresarSaldo(double monto) {
         this.saldo += monto;
         Menu.mensajeIngresoRetiroSaldo(this.saldo, true);
     }
 
+    /**
+     * Método que permite retirar saldo de la cuenta vista, para ello se solicita el monto a retirar
+     * y se actualiza el saldo de la cuenta. A demás verifica que no se pueda retirar un monto mayor al saldo disponible.
+     *
+     * @param monto Monto a retirar de la cuenta.
+     */
     @Override
     public void retirarSaldo(double monto) {
         double nuevoSaldo = this.saldo - monto;
@@ -72,6 +97,9 @@ public class CuentaVista extends Cuenta implements Transaccion {
         }
     }
 
+    /**
+     * Método que muestra el saldo disponible en la cuenta vista.
+     */
     @Override
     public void mostrarSaldo() {
         Scanner scanner = new Scanner(System.in);

@@ -9,6 +9,9 @@ public class Menu {
 
     //Menus
 
+    /**
+     * Muestra el menú de inicio
+     */
     public static void menuInicio() {
         System.out.println("=================================");
         System.out.println("|   BIENVENIDO A WALLET BANK    |");
@@ -20,6 +23,10 @@ public class Menu {
         System.out.println("=================================");
     }
 
+    /**
+     * Muestra el menú que pregunta el usuario si quiere ingresar saldo
+     * después de haberse registrado.
+     */
     public static void menuIngresarSaldoRegistro() {
         System.out.println("=================================");
         System.out.println("|       REGISTRO COMPLETADO     |");
@@ -29,6 +36,10 @@ public class Menu {
 
     }
 
+    /**
+     * Menú que avisa al usuario ingresar los datos proporcionados
+     * por consola.
+     */
     public static void menuRegistrar() {
         System.out.println("=================================");
         System.out.println("|           REGISTRO            |");
@@ -38,6 +49,9 @@ public class Menu {
         System.out.println("=================================");
     }
 
+    /**
+     * Menú que muestra las opciones del usuario al ingresar al sistema.
+     */
     public static void menuConsultasUsuario() {
         System.out.println("=================================");
         System.out.println("|      CONSULTAS AL BANCO       |");
@@ -51,6 +65,9 @@ public class Menu {
         System.out.println("=================================");
     }
 
+    /**
+     * Menú que muestra las opciones de cambio de divisa.
+     */
     public static void menuSeleccionarDivisa() {
         System.out.println("=================================");
         System.out.println("|       CONVERSOR DIVISA        |");
@@ -64,12 +81,19 @@ public class Menu {
 
     //Mensajes
 
+    /**
+     * Mensaje que se muestra cuando el usuario ingresa un rut inválido.
+     */
     public static void mensajeRutInvalido() {
         System.out.println("=================================");
         System.out.println("|      INGRESE RUT VÁLIDO       |");
         System.out.println("=================================");
     }
 
+
+    /**
+     * Mensaje que se muestra cuando una cuenta es creada con éxito.
+     */
     public static void mensajeCreacionExitosa() {
         Scanner scanner = new Scanner(System.in);
         System.out.println("=================================");
@@ -79,7 +103,9 @@ public class Menu {
         scanner.nextLine();
     }
 
-
+    /**
+     * Mensaje que se muestra cuando el correo ingresado es inválido.
+     */
     public static void mensajeCorreoInvalido() {
         System.out.println("=================================");
         System.out.println("|    INGRESE CORREO VÁLIDO      |");
@@ -87,6 +113,10 @@ public class Menu {
 
     }
 
+    /**
+     * Mensaje que se muestra cuando estás registrando un usuario
+     * y las contraseñas que ingresaste no coinciden.
+     */
     public static void mensajeContrasenaDistinta() {
         Scanner scanner = new Scanner(System.in);
         System.out.println("=================================");
@@ -97,6 +127,10 @@ public class Menu {
         scanner.nextLine();
     }
 
+    /**
+     * Mensaje de error cuando el usuario debe responder con "S" o "N" y respondió
+     * con otra cosa.
+     */
     public static void mensajeResponderSN() {
         Scanner scanner = new Scanner(System.in);
         System.out.println("================================");
@@ -107,6 +141,9 @@ public class Menu {
     }
 
 
+    /**
+     * Mensaje que se muestra cuando el usuario ingresa una opción inválida.
+     */
     public static void mensajeOpcionInvalida() {
         Scanner scanner = new Scanner(System.in);
         System.out.println("================================");
@@ -117,13 +154,20 @@ public class Menu {
         scanner.nextLine();
     }
 
+    /**
+     * Mensaje que se muestra cuando se cierra el sistema.
+     */
     public static void mensajeDespedida() {
         System.out.println("================================");
-        System.out.println("|    QUE TENGA UN BUEN DÍA,    |");
+        System.out.println("|   SISTEMA BANCARIO CERRADO   |");
         System.out.println("|         HASTA LUEGO          |");
         System.out.println("================================");
     }
 
+
+    /**
+     *
+     */
     public static void mensajeSaldoInvalido() {
         Scanner scanner = new Scanner(System.in);
         System.out.println("================================");
@@ -135,13 +179,19 @@ public class Menu {
 
     }
 
-
+    /**
+     * Mensaje que se muestra cuando el usuario ingresa un nombre válido.
+     */
     public static void mensajeConexionExitosa() {
         System.out.println("=================================");
         System.out.println("|       CONEXIÓN ÉXITOSA        |");
         System.out.println("=================================");
     }
 
+    /**
+     * Mensaje que se muestra cuando el usuario realiza un retiro o
+     * un ingreso de saldo.
+     */
     public static void mensajeIngresoRetiroSaldo(double saldo, boolean ingreso) {
         Scanner scanner = new Scanner(System.in);
         String moneda = "Pesos";
@@ -170,6 +220,10 @@ public class Menu {
         scanner.nextLine();
     }
 
+    /**
+     * Mensaje de error cuando un usuario intenta conectarse al sistema
+     * y las credenciales son incorrectas.
+     */
     public static boolean mensajeConexionFallida() {
         Scanner scanner = new Scanner(System.in);
         String salir;
@@ -189,6 +243,10 @@ public class Menu {
         }
     }
 
+    /**
+     * Mensaje que se muestra cuando un usuario intenta ingresar al sistema
+     * y no existen usuarios registrados.
+     */
     public static void mensajeNoExistenUsuarios() {
         Scanner scanner = new Scanner(System.in);
         System.out.println("=================================");
@@ -199,6 +257,9 @@ public class Menu {
         scanner.nextLine();
     }
 
+    /**
+     * Mensaje que se muestra cuando un usuario intenta retirar saldo y no hay saldo suficiente para su retiro
+     */
     public static void mensajeSaldoInsuficiente() {
         Scanner scanner = new Scanner(System.in);
         System.out.println("=================================");

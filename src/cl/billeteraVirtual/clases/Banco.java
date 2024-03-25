@@ -3,14 +3,22 @@ package cl.billeteraVirtual.clases;
 import java.util.*;
 
 public class Banco {
-    private String nombre;
-    private List<Usuario> listaUsuarios = new ArrayList<>();
 
+    //Atributos
+    private String nombre;
+
+
+    //Constructores
+    public Banco(String nombre) {
+        this.nombre = nombre;
+    }
+
+    //Accesadores y mutadores
+    private List<Usuario> listaUsuarios = new ArrayList<>();
 
     public Banco() {
         this.listaUsuarios = new ArrayList<>();
     }
-
 
     public List<Usuario> getListaUsuarios() {
         return listaUsuarios;
@@ -18,10 +26,22 @@ public class Banco {
 
 
     //Métodos custom
+
+    /**
+     * Método que agrega un usuario a la lista de usuarios del banco
+     *
+     * @param usuario Usuario entrante a agregar a la lista de usuarios
+     * @author Javier Alcántara
+     */
     public void agregarUsuario(Usuario usuario) {
         this.listaUsuarios.add(usuario);
     }
 
+    /**
+     * Método que busca un usuario en la lista de usuarios del banco
+     * Solicita correo y contraseña para buscar al usuario
+     * para así poder acceder al sistemaUsuario
+     */
     public void buscarUsuario() {
         Scanner scanner = new Scanner(System.in);
         Banco banco = new Banco();
