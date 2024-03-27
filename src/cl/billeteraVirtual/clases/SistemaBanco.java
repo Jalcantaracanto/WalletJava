@@ -12,8 +12,8 @@ public class SistemaBanco {
      * - Registrarte como nuevo usuario.
      * - Salir del sistema.
      */
-    public static void sistemaBanco(Banco banco) {
-        //Banco banco = new Banco("Walletcito");
+    public static void sistemaBanco() {
+        Banco banco = new Banco("Walletcito");
         Scanner scanner = new Scanner(System.in);
         int opcion;
         while (true) {

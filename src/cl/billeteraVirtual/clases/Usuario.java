@@ -142,7 +142,7 @@ public class Usuario {
             }
 
         } catch (NumberFormatException e) {
-            System.out.println(e);
+
         }
         return validacion;
     }
