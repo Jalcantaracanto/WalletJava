@@ -86,7 +86,7 @@ public class CuentaVista extends Cuenta implements Transaccion {
 
     /**
      * Método que permite retirar saldo de la cuenta vista, para ello se solicita el monto a retirar
-     * y se actualiza el saldo de la cuenta. A demás verifica que no se pueda retirar un monto mayor al saldo disponible.
+     * y se actualiza el saldo de la cuenta. A demás vérifica que no se pueda retirar un monto mayor al saldo disponible.
      *
      * @param monto Monto a retirar de la cuenta.
      */

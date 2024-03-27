@@ -33,7 +33,7 @@ public class Banco {
     //Métodos custom
 
     /**
-     * Método que agrega un usuario a la lista de usuarios del banco
+     * Método que agrega un usuario a la lista de usuarios del banco.
      *
      * @param usuario Usuario entrante a agregar a la lista de usuarios
      * @author Javier Alcántara

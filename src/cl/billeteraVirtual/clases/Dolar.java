@@ -19,7 +19,7 @@ public class Dolar implements Conversor {
     public void convertirSaldo(double saldo) {
 
         Scanner scanner = new Scanner(System.in);
-        double dolar = (double) saldo / valorDolar;
+        double dolar = saldo / valorDolar;
 
         DecimalFormat formatoSaldo = new DecimalFormat("#,##0.00");
         String saldoFormateado = formatoSaldo.format(dolar);

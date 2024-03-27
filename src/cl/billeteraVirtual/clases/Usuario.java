@@ -111,7 +111,7 @@ public class Usuario {
 
     /**
      * Método que permite agregar una cuenta a la lista de cuentas del usuario.
-     * @param cuenta Se recibe un objeto de tipo Cuenta.
+     * @param cuenta Se recibe un objeto de tipo Cuenta
      */
     public void agregarCuenta(Cuenta cuenta) {
         this.listaCuentas.add(cuenta);

@@ -18,7 +18,7 @@ public class Euro implements Conversor {
     public void convertirSaldo(double saldo) {
 
         Scanner scanner = new Scanner(System.in);
-        double euro = (double) saldo / valorEuro;
+        double euro = saldo / valorEuro;
 
         DecimalFormat formatoSaldo = new DecimalFormat("#,##0.00");
         String saldoFormateado = formatoSaldo.format(euro);
