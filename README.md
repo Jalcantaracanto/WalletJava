@@ -4,7 +4,7 @@ Primer trabajo realizado para bootcamp fullstack android. Se inicio con Java par
 
 # Índice
 
-*[Título e imagen de portada](https://github.com/Jalcantaracanto/WalletJava/assets/images/MenuInicial.png)
+*[Título e imagen de portada](https://github.com/Jalcantaracanto/WalletJava/assets/img/MenuInicial.png)
 
 *[Insignias](#insignias)
 
