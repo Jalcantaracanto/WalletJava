@@ -1,6 +1,9 @@
 package cl.billeteraVirtual.clases;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Scanner;
+
 
 public class Banco {
 
@@ -24,7 +27,9 @@ public class Banco {
         return listaUsuarios;
     }
 
-
+    public void setListaUsuarios(List<Usuario> listaUsuarios) {
+        this.listaUsuarios = listaUsuarios;
+    }
     //Métodos custom
 
     /**
@@ -44,7 +49,6 @@ public class Banco {
      */
     public void buscarUsuario() {
         Scanner scanner = new Scanner(System.in);
-        Banco banco = new Banco();
         boolean continuar = false;
         boolean encontrado = false;
         do {
@@ -66,7 +70,7 @@ public class Banco {
                     }
                 }
                 if (!encontrado) {
-                    continuar = Menu.mensajeConexionFallida();
+                    continuar = Menu.mensajeConexionFallida(scanner);
                 }
             }
         } while (continuar);

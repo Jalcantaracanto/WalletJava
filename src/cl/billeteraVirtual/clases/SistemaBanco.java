@@ -12,8 +12,8 @@ public class SistemaBanco {
      * - Registrarte como nuevo usuario.
      * - Salir del sistema.
      */
-    public static void sistemaBanco() {
-        Banco banco = new Banco("Walletcito");
+    public static void sistemaBanco(Banco banco) {
+        //Banco banco = new Banco("Walletcito");
         Scanner scanner = new Scanner(System.in);
         int opcion;
         while (true) {
@@ -190,7 +190,7 @@ public class SistemaBanco {
         int monto;
 
         while (true) {
-            System.out.print(ingreso ? "Ingrese Cantidad a Retirar: " : "Ingrese Cantidad a Ingresar: ");
+            System.out.print(ingreso ? "Ingrese Cantidad a Ingresar: " : "Ingrese Cantidad a Retirar: ");
             if (scanner.hasNextInt()) {
                 monto = scanner.nextInt();
                 return monto;

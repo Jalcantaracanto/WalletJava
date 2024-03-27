@@ -25,6 +25,11 @@ public class CuentaVista extends Cuenta implements Transaccion {
         super();
     }
 
+    public CuentaVista(long idCuenta, Usuario cuentaUsuario){
+        super(idCuenta, cuentaUsuario);
+
+    }
+
     // Accesadores y mutadores
     public double getSaldo() {
         return saldo;
@@ -57,11 +62,11 @@ public class CuentaVista extends Cuenta implements Transaccion {
             scanner.nextLine();
             CuentaVista nuevaCuenta = new CuentaVista(idCuenta, getCuentaUsuario(), saldoInicial, nroCuenta, tipoCuenta);
             getCuentaUsuario().agregarCuenta(nuevaCuenta);
-            Menu.mensajeCreacionExitosa();
+            Menu.mensajeCreacionExitosa(scanner);
         } else {
             CuentaVista nuevaCuenta = new CuentaVista(idCuenta, getCuentaUsuario(), 0, nroCuenta, tipoCuenta);
             getCuentaUsuario().agregarCuenta(nuevaCuenta);
-            Menu.mensajeCreacionExitosa();
+            Menu.mensajeCreacionExitosa(scanner);
         }
 
     }

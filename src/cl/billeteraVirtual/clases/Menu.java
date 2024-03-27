@@ -94,8 +94,7 @@ public class Menu {
     /**
      * Mensaje que se muestra cuando una cuenta es creada con éxito.
      */
-    public static void mensajeCreacionExitosa() {
-        Scanner scanner = new Scanner(System.in);
+    public static void mensajeCreacionExitosa(Scanner scanner) {
         System.out.println("=================================");
         System.out.println("|    CUENTA CREADA CON ÉXITO    |");
         System.out.println("=================================");
@@ -224,8 +223,7 @@ public class Menu {
      * Mensaje de error cuando un usuario intenta conectarse al sistema
      * y las credenciales son incorrectas.
      */
-    public static boolean mensajeConexionFallida() {
-        Scanner scanner = new Scanner(System.in);
+    public static boolean mensajeConexionFallida(Scanner scanner) {
         String salir;
         System.out.println("=================================");
         System.out.println("|     USUARIO Y/O CONTRASEÑA    |");
