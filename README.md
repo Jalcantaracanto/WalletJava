@@ -41,7 +41,11 @@ Actualmente, el proyecto se encuentra finalizado en su primera etapa. Aun así c
 
 # Caracteristicas de la aplicacioón y demostración
 
-}
+![Imagen](https://github.com/Jalcantaracanto/WalletJava/blob/master/assets/img/muestra1.png)
+![Imagen](https://github.com/Jalcantaracanto/WalletJava/blob/master/assets/img/muestra2.png)
+![Imagen](https://github.com/Jalcantaracanto/WalletJava/blob/master/assets/img/muestra4.png)
+![Imagen](https://github.com/Jalcantaracanto/WalletJava/blob/master/assets/img/muestra3.png)
+
 
 # Tecnologias Utilizadas
  <ul>
