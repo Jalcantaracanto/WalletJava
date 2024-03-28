@@ -41,6 +41,8 @@ Actualmente, el proyecto se encuentra finalizado en su primera etapa. Aun así c
 
 # Caracteristicas de la aplicacioón y demostración
 
+}
+
 # Tecnologias Utilizadas
  <ul>
     <li>
@@ -57,14 +59,6 @@ Actualmente, el proyecto se encuentra finalizado en su primera etapa. Aun así c
 
 <!--
 *[Acceso al proyecto](#acceso-proyecto)
-
-*[Tecnologías utilizadas](#tecnologías-utilizadas)
-
-*[Personas Contribuyentes](#personas-contribuyentes)
-
-*[Personas-Desarrolladores del Proyecto](#personas-desarrolladores)
-
-* [Licencia](#licencia)
-
+s
 *[Conclusión](#conclusión)
  -->
