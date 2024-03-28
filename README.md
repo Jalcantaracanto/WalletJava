@@ -10,7 +10,7 @@ Primer trabajo realizado para bootcamp fullstack android. Se inicio con Java par
 </div>
 
 # Descripción
-A travez de una solicitud, han solicitado crear una wallet digital. La problematica a resolver es brindar a los usuarios una solución segura y fácil de usar para administrar sus activos financieros de manera digital. Está wallet permitirá a los usuarios a realizar transacciones dentro de la aplicación.
+A través de una solicitud, han solicitado crear una wallet digital. La problematica a resolver es brindar a los usuarios una solución segura y fácil de usar para administrar sus activos financieros de manera digital. Esta wallet permitirá a los usuarios realizar transacciones dentro de la aplicación.
 
 <strong>Requerimientos Generales:</strong>
 
@@ -37,7 +37,7 @@ A travez de una solicitud, han solicitado crear una wallet digital. La problemat
  </ul>
 
 # Estado del Proyecto
-Actualmente el proyecto se encuentra finalizado en su primera etapa. Pero este ira cambiando, ya que a medida avance el bootcamp se solicitaran nuevas implementaciones. Iré actualizando esto a medida el proyecto necesite nuevos cambios.
+Actualmente, el proyecto se encuentra finalizado en su primera etapa. Aun así con el pasar del bootcamp este proyecto ira cambiando, ya que a medida avancemos en la materia, irán solicitando nuevas implementaciones. Iré actualizando esto a medida el proyecto necesité nuevos cambios.
 
 # Caracteristicas de la aplicacioón y demostración
 
