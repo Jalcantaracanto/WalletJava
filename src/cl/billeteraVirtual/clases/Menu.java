@@ -86,7 +86,7 @@ public class Menu {
      */
     public static void mensajeRutInvalido() {
         System.out.println("=================================");
-        System.out.println("|      INGRESE RUT VÁLIDO       |");
+        System.out.println("|      INGRESE RUT VALIDO       |");
         System.out.println("=================================");
     }
 
@@ -107,7 +107,7 @@ public class Menu {
      */
     public static void mensajeCorreoInvalido() {
         System.out.println("=================================");
-        System.out.println("|    INGRESE CORREO VÁLIDO      |");
+        System.out.println("|    INGRESE CORREO VALIDO      |");
         System.out.println("=================================");
 
     }
@@ -146,7 +146,7 @@ public class Menu {
     public static void mensajeOpcionInvalida() {
         Scanner scanner = new Scanner(System.in);
         System.out.println("================================");
-        System.out.println("|        OPCIÓN INVÁLIDA       |");
+        System.out.println("|        OPCION INVALIDA       |");
         System.out.println("|      INTENTE NUEVAMENTE      |");
         System.out.println("================================");
         System.out.println("Presione enter para continuar...");
